@@ -2,6 +2,37 @@ require 'set'
 require 'securerandom'
 require 'fleet_captain/commands/docker'
 require 'active_support/configurable'
+require 'active_support/core_ext/hash'
+
+# Type=
+# RemainAfterExit=
+# GuessMainPID=
+# PIDFile=
+# BusName=
+# BusPolicy=
+# ExecStart=
+# ExecStartPre=, ExecStartPost=
+# ExecReload=
+# ExecStop=
+# ExecStopPost=
+# RestartSec=
+# TimeoutStartSec=
+# TimeoutStopSec=
+# TimeoutSec=
+# WatchdogSec=
+# Restart=
+# SuccessExitStatus=
+# RestartPreventExitStatus=
+# RestartForceExitStatus=
+# PermissionsStartOnly=
+# RootDirectoryStartOnly=
+# NonBlocking=
+# NotifyAccess=
+# Sockets=
+# StartLimitInterval=, StartLimitBurst=
+# StartLimitAction=
+# FailureAction=
+# RebootArgument=
 
 module FleetCaptain
   def self.command(&block)
@@ -22,7 +53,7 @@ module FleetCaptain
 
     def service(container, &block)
       service = FleetCaptain::Service.new(container, &block)
-      FleetCaptain::Service.services << service
+      FleetCaptain.services << service
       service
     end
 
@@ -162,6 +193,7 @@ module FleetCaptain
     #
     def to_hash
       {
+      "Unit" => {
         "Description"   => @description,
         "Name"          => @name,
         "ExecStart"     => @start_command,
@@ -172,6 +204,10 @@ module FleetCaptain
         "ExecStopPre"   => @before_stop,
         "ExecStopPost"  => @after_stop,
         "ExecReload"    => @reload
+      }.compact,
+      
+      "X-Fleet" => {
+        machine
       }
     end
 
