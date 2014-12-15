@@ -1,4 +1,9 @@
 namespace :fleet_captain do
+  desc 'Obtain a discovery url from the etcd endpoint'
+  task :discovery do
+    puts open('https://discovery.etcd.io/new').read
+  end
+
   desc 'Start a deployment, make sure server(s) ready.'
   task :starting do
     invoke 'docker:start'
@@ -8,13 +13,27 @@ namespace :fleet_captain do
   task :started do
   end
 
+  desc 'Connect AWS CloudFormation Client'
+  task :connect do
+    invoke 'aws:connect'
+  end
+
+  desc 'Provision CoreOS / Docker ready servers'
+  task :provisioning do
+    invoke 'aws:provision'
+  end
+
+  desc 'Done provisioning'
+  task :provisioned do
+    #notify the user
+  end
+
   desc 'Build Docker Container'
   task :building do
     # retag the last release as "previous"
     invoke 'docker:retag'
     # tag the current release as 'deploy_tag'
     invoke 'docker:build'
-    invoke 'elastic_beanstalk:build'
   end
 
   desc 'Built docker Container'
@@ -23,10 +42,8 @@ namespace :fleet_captain do
 
   desc 'Update server(s) by setting up a new release.'
   task :updating do
-    # push the current relase to docker hub
+    # push the current relase to docker hub or other repo
     invoke 'docker:push'
-    # get the beanstalk to pick up the new container 
-    invoke 'elastic_beanstalk:kick'
   end
 
   desc 'Updated'
@@ -37,7 +54,7 @@ namespace :fleet_captain do
   desc 'Revert server(s) to previous release.'
   task :reverting do
     # get the previously deployed tag from elastic beanstalk
-    invoke 'elastic_beanstalk:deploy_tag', previous
+    invoke 'fleet:revert'
   end
 
   desc 'Reverted'
@@ -47,7 +64,7 @@ namespace :fleet_captain do
 
   desc 'Publish the release.'
   task :publishing do
-    invoke 'elastic_beanstalk:deploy_tag', the_revision_of_the_current_commit
+    invoke 'fleet:list'
   end
 
   desc 'Published'
@@ -57,8 +74,7 @@ namespace :fleet_captain do
 
   desc 'Finish the deployment, clean up server(s).'
   task :finishing do
-    # remove the EB Zip file
-    invoke 'docker:clean_beanstalk'
+    # inform the user
   end
 
   desc 'Finish the rollback, clean up server(s).'
@@ -77,7 +93,7 @@ namespace :fleet_captain do
         reverting reverted
         publishing published
         finishing_rollback finished }.each do |task|
-      invoke "deploy:#{task}"
+      invoke "fleet_captain:#{task}"
     end
   end
 
@@ -91,9 +107,21 @@ namespace :fleet_captain do
       invoke "fleet_captain:#{task}"
     end
   end
+
+  task :setup do
+    %w{ connect provisioning provisioned }.each do |task|
+      invoke "fleet_captain:#{task}"
+    end
+  end
 end
 
 desc 'Deploy a new release with docker.'
 task :deploy do
   invoke "fleet_captain:deploy"
+end
+
+namespace :deploy do
+  task :setup do
+    invoke "fleet_captain:setup"
+  end
 end

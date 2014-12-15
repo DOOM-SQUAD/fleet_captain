@@ -1,36 +1,43 @@
-require 'mkmf'
-require 'open3'
-require 'active_support/core_ext/object/blank'
-
 namespace :docker do
+
   def strategy
     @strategy ||= Capistrano::FleetCaptain.new(self, fetch(:docker_strategy, Capistrano::FleetCaptain::DefaultStrategy))
   end
 
+  def container_tag(tag)
+    FleetCaptain.docker_repo_url(
+      repo: fetch(:docker_repo, ''),
+      user: fetch(:docker_user),
+      name: fetch(:docker_name, fetch(:application)),
+      tag:  tag 
+    )
+  end
+
   def production_tag
-    "#{fetch(:repo)}/#{fetch(:application)}:#{fetch(:deploy_tag)}"
+    container_tag(fetch(:deploy_tag))
   end
 
   def rollback_tag
-    "#{fetch(:repo)}/#{fetch(:application)}:#{fetch(:previous_tag, 'previous')}"
+    container_tag(fetch(:rollback_tag, 'previous'))
   end
 
   task :start do
-    run_locally do
-      strategy.verify
-    end
+    strategy.verify
   end
 
   task :retag do
-    run_locally do
-      image_id = strategy.image_list[production_tag]
-      strategy.tag(image_id, rollback_tag)
-    end
+    strategy.rollback_tag(production_tag, rollback_tag)
   end
 
   task :build do
-    run_locally do
-      strategy.build("#{fetch(:repo)}/#{fetch(:application)}:#{fetch(:deploy_tag)}")
-    end
+    strategy.build(production_tag)
+  end
+
+  task :release do
+    # will push "rollback" tag to the repo leaving it tagged as "production"
+    strategy.release(rollback_tag)
+    
+    # will push "production" tag to the repo, replacing the current production
+    strategy.release(production_tag)
   end
 end

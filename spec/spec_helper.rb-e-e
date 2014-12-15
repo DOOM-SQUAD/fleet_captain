@@ -1,5 +1,16 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'capistrano/all'
-require 'capistrano/elastic_docker'
-require 'rspec'
+require 'fleet_captain'
+
+require 'vcr'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'fixtures/vcr_cassettes'
+  c.hook_into :excon
+  c.configure_rspec_metadata!
+end
+
+RSpec.configure do |c|
+  c.before(:example, live: true) do
+    VCR.eject_cassette
+    VCR.turn_off!
+  end
+end
