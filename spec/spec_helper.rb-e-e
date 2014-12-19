@@ -4,7 +4,7 @@ require 'vcr'
 
 VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
-  c.hook_into :excon
+  c.hook_into :excon, :faraday
   c.configure_rspec_metadata!
 end
 

@@ -1,58 +1,67 @@
-require 'set'
-require 'securerandom'
-require 'fleet_captain/commands/docker'
 require 'active_support/configurable'
-require 'active_support/core_ext/hash'
-
-# Type=
-# RemainAfterExit=
-# GuessMainPID=
-# PIDFile=
-# BusName=
-# BusPolicy=
-# ExecStart=
-# ExecStartPre=, ExecStartPost=
-# ExecReload=
-# ExecStop=
-# ExecStopPost=
-# RestartSec=
-# TimeoutStartSec=
-# TimeoutStopSec=
-# TimeoutSec=
-# WatchdogSec=
-# Restart=
-# SuccessExitStatus=
-# RestartPreventExitStatus=
-# RestartForceExitStatus=
-# PermissionsStartOnly=
-# RootDirectoryStartOnly=
-# NonBlocking=
-# NotifyAccess=
-# Sockets=
-# StartLimitInterval=, StartLimitBurst=
-# StartLimitAction=
-# FailureAction=
-# RebootArgument=
+require 'active_support/inflector'
 
 module FleetCaptain
-  def self.command(&block)
-    FleetCaptain::DSL.module_eval(&block)
-  end
+  UNIT_DIRECTIVES = %w(
+    Description
+    Name
+    After
+    Requires
+  )
 
-  def self.services
-    Service.services
-  end
+  SERVICE_DIRECTIVES = %w(
+    ExecStart
+    ExecStartPre
+    ExecStartPost
+    ExecReload
+    ExecStop
+    ExecStopPost
+    RestartSec
+    Type
+    RemainAfterExit
+    BusName
+    BusPolicy
+    TimeoutStartSec
+    TimeoutStopSec
+    TimeoutSec
+    WatchdogSec
+    Restart
+    SuccessExitStatus
+    RestartPreventExitStatus
+    RestartForceExitStatus
+    PermissionsStartOnly
+    RootDirectoryStartOnly
+    NonBlocking
+    NotifyAccess
+    Sockets
+    StartLimitInterval
+    StartLimitBurst
+    StartLimitAction
+    FailureAction
+    RebootArgument
+    GuessMainPID
+    PIDFile
+  )
 
-  def self.fleetfile(filename)
-    DSL.send(:eval, File.read(filename))
-    services
+  XFLEET_DIRECTIVES = %w(
+    MachineID
+    MachineOf
+    MachineMetadata
+    Conflicts
+    Global
+  )
+
+  def self.available_methods
+    return @available_methods if @available_methods
+    all_methods = (UNIT_DIRECTIVES + SERVICE_DIRECTIVES + XFLEET_DIRECTIVES)
+    @available_methods = all_methods.map { |name| name.underscore }
   end
 
   module DSL
     extend self
 
-    def service(container, &block)
-      service = FleetCaptain::Service.new(container, &block)
+    def service(name, &block)
+      service = FleetCaptain::DSL::ServiceFactory.build(name, &block)
       FleetCaptain.services << service
       service
     end
@@ -64,163 +73,86 @@ module FleetCaptain
     def default_container
       @default_container
     end
-  end
 
-  class Service
-    include ActiveSupport::Configurable
+    class ServiceFactory
+      include ActiveSupport::Configurable
 
-    config_accessor :default_before_start do
-      [:kill, :rm, :pull]
-    end
-
-    config_accessor :default_before_stop do
-      [:stop]
-    end
-
-    config_accessor :default_after_start do
-      ["cap fleet:available[%n]"]
-    end
-
-    config_accessor :default_after_stop do
-      ["cap fleet:unavailable[%n]"]
-    end
-
-    def self.reset
-      @services = Set.new
-    end
-
-    def self.services
-      @services ||= Set.new
-    end
-
-    def self.[](key)
-      services.find { |s| s.name == key || s.name == key + "@" }
-    end
-
-    def self.command_parser
-      Commands::Docker
-    end
-
-    attr_reader :name
-
-    def initialize(service_name, &block)
-      @name = service_name 
-      @instances = 1
-      @command_parser = self.class.command_parser.new(self)
-      @before_start   = to_command(self.config.default_before_start)
-      @before_stop    = to_command(self.config.default_before_stop)
-      @after_start    = to_command(self.config.default_after_start)
-      @after_stop     = to_command(self.config.default_after_stop)
-
-      instance_eval(&block) if block_given?
-    end
-
-    def container(container = nil)
-      @container = container unless container.nil?
-      @container || FleetCaptain::DSL.default_container
-    end
-
-    def instances(count)
-      @instances = count
-      @name = name + "@" if @instances > 1
-      @instances
-    end
-
-    def container_name
-      @container_name ||= (name.chomp("@") + "-" + SecureRandom.hex(3))
-    end
-
-    def template?
-      @instances > 1
-    end
-
-    def description(desc)
-      @description = desc
-    end
-
-    # Commands:
-    #
-    # Anyhwere a command is referenced in a service, it is expected to conform
-    # to these expectations:
-    #
-    # * If a symbol is passed then it is considered a container command
-    # * If a string is passed, it is considered a full-fledged shell command
-    #
-    def after_start(*commands)
-      @after_start = to_command(commands)
-    end
-
-    def after_stop(*commands)
-      @after_stop = to_command(commands)
-    end
-
-    def before_start(*commands)
-      @before_start = to_command(commands)
-    end
-
-    def before_stop(*commands)
-      @before_stop = to_command(commands)
-    end
-
-    def start(command)
-      @start_command = to_command(command)
-    end
-
-    def stop(command)
-      @stop_command = to_command(command)
-    end
-
-    def reload(*commands)
-      @reload = to_command(commands)
-    end
-
-    # Fleet directs restart time spans as though they were seconds.
-    #
-    def restart_time(seconds)
-      @restart_time = seconds
-    end
-
-    def machine_id(machine_id)
-      @machine_id = machine_id
-    end
-
-    def machine_of(services_or_role)
-      @machine_of = services_or_role
-    end
-
-    # Services are built based on json output.  This is the hash used to
-    # describe that json.
-    #
-    def to_hash
-      {
-      "Unit" => {
-        "Description"   => @description,
-        "Name"          => @name,
-        "ExecStart"     => @start_command,
-        "ExecStartPre"  => @before_start,
-        "ExecStartPost" => @after_start,
-        "RestartSec"    => @restart_time,
-        "ExecStop"      => @stop_command,
-        "ExecStopPre"   => @before_stop,
-        "ExecStopPost"  => @after_stop,
-        "ExecReload"    => @reload
-      }.compact,
-      
-      "X-Fleet" => {
-        machine
-      }
-    end
-
-    def to_command(command)
-      case command
-      when String
-        [command]
-      when Symbol, Hash
-        [@command_parser.to_command(command)].flatten
-      when Array
-        command.map { |v| to_command(v) }.flatten
+      config_accessor :default_before_start do
+        [:kill, :rm, :pull]
       end
-    end
 
+      config_accessor :default_stop do
+        [:stop]
+      end
+
+      config_accessor :default_after_start do
+        ["cap fleet:available[%n]"]
+      end
+
+      config_accessor :default_after_stop do
+        ["cap fleet:unavailable[%n]"]
+      end
+
+      # unit are assigned names based on the
+      # sha1-hash of their unit file. if you have enough
+      # unit files it's possible you can have a hash collision
+      # in the first part of that hash. you can increase
+      # this number if you find that happening.
+      config_accessor :hash_slice_length do
+        6
+      end
+
+      attr_reader :service
+
+      def self.build(name, &block)
+        service = FleetCaptain::Service.new(name, config.hash_slice_length)
+        service.after             = 'docker.service'
+        service.requires          = 'docker.service'
+        service.exec_start_pre    = config.default_before_start
+        service.exec_start_post   = config.default_after_start
+        service.exec_stop         = config.default_stop
+        service.exec_stop_post    = config.default_after_stop
+        service.container         = FleetCaptain::DSL.default_container
+        new(service, &block).service
+      end
+
+      def initialize(service, &block)
+        @service = service
+        instance_eval(&block) if block_given?
+      end
+
+      def container(container)
+        service.container = container unless container.nil?
+      end
+
+      def instances(count)
+        service.instances = count
+        service.name = service.name + "@" if count > 1
+      end
+
+      def description(desc)
+        service.description = desc
+      end
+
+      
+      def self.define_directives(methods)
+        methods.each do |directive|
+          define_method directive.underscore do |value|
+            service.send(directive.underscore, value)
+          end
+        end
+      end
+
+      define_directives(UNIT_DIRECTIVES)
+      define_directives(SERVICE_DIRECTIVES)
+      define_directives(XFLEET_DIRECTIVES)
+
+      alias_method :before_start,  :exec_start_pre
+      alias_method :start,         :exec_start
+      alias_method :after_start,   :exec_start_post
+      alias_method :reload,        :exec_reload
+      alias_method :stop,          :exec_stop
+      alias_method :after_stop,    :exec_stop_post
+    end
   end
 end

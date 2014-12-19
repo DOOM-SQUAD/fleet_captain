@@ -54,7 +54,7 @@ namespace :fleet_captain do
   desc 'Revert server(s) to previous release.'
   task :reverting do
     # get the previously deployed tag from elastic beanstalk
-    invoke 'fleet:revert'
+    invoke 'fleet:revert', previous
   end
 
   desc 'Reverted'
@@ -64,7 +64,7 @@ namespace :fleet_captain do
 
   desc 'Publish the release.'
   task :publishing do
-    invoke 'fleet:list'
+    invoke 'fleet:deploy'
   end
 
   desc 'Published'

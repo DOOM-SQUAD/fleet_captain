@@ -20,8 +20,7 @@ module Capistrano
     end
 
     def fleet(*args)
-      @fleet_client ||= FleetCaptain::FleetClient.new
-      @fleet_client.send(*args)
+      @fleet_client.send(*args, &block)
     end
     
     def cloud(*args, &block)
@@ -29,12 +28,36 @@ module Capistrano
     end
 
     module DefaultStrategy
+      def fleet_setup(fleet_endpoint)
+        @fleet_client = FleetCaptain::FleetClient.new(actual, fleet_endpoint, public_key)
+      end
+
       def aws_setup(name, tags)
-        @cloud ||= FleetCaptain::AWSClient.new(name, tags)
+        @cloud = FleetCaptain::AWSClient.new(name, tags)
+      end
+
+      def load_fleetfile
+        FleetCaptain.fleetfile
       end
 
       def list_services
-        fleet :list
+        FleetCaptain.services
+      end
+
+      def new_services
+        FleetCaptain.services not in fleet(:list)
+      end
+
+      def changed_services
+        FleetCaptain.services changed from fleet(:list)
+      end
+
+      def stale_services
+        fleet(:list) not in FleetCaptain.services
+      end
+      
+      def services
+        FleetCaptain.services
       end
 
       def provision(&block)

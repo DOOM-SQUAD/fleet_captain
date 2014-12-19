@@ -92,6 +92,87 @@ Fleet.command do
 end
 ```
 
+## Deploying with Fleet
+
+Once you have defined all of your services, you can deploy to your CoreOS
+cluster using the Capistrano extensions that FleetCaptain provides.  If your
+cluster is not already provisioned, you will need to do a `cap deploy:setup` to
+create the stack through Cloud Formation before you can deploy to it. (NB: There
+is no notification that this is complete, so you'll need to watch your AWS
+console for notification that it is done.)
+
+Afterward, you just do `cap deploy` like you always have, and FleetCaptain takes
+over.
+
+1) FleetCaptain will search your project root for a Dockerfile and compile it
+into a container.
+
+2) It will push that container to DockerHub.
+
+3) It will parse your Fleetfile and compare services defined in that file to the
+currently installed units on your cluster.  Any unit not found on the cluster
+will be installed. A unit with a matching name, but a different unit file will
+be updated.  If a unit is currently running on the cluster, but is not found in
+your Fleetfile an error will be raised. (This behavior should be configurable.)
+
+4) It will begin a rolling restart of your units - this works by stopping each
+individual instance of a service and waiting for it to finish restarting before
+restarting the next unit.  A service with a single instance cannot be "rolling
+restarted."
+
+5) As all of the services start up, they will register themselves with the etcd
+cluster as available under the release's tag.  When the etcd cluster available
+services list includes all of the services specified in your fleet file, the
+deploy is done.
+
+Caveats and cautions:
+
+If your services communicate with each other over external or internal API's
+that might change, it is important to retrieve the service connection
+information from the etcd cluster.  FleetCaptain provides a simple interface to
+the etcd cluster to retrieve this information.  Your service should register
+itself with the etcd cluster as soon as it is available to service requests, and
+should unregister itself before it exits.  The deploy script will do some basic
+registering / deregistering of processes as the containers start, but there is
+no guarantee that this will coincide with your services ability to do work.
+
+The mechanism for this is to call:
+
+```ruby
+FleetCaptain.register('service_name', connection_hash) 
+```
+
+When your service is ready. Note that this will only allow services WITHIN the
+same version to discover your deploy. You can register as compatible within
+different release tags by passing them as an additional parameter.
+
+```ruby
+FleetCaptain.register('service_name', connection_hash, versions: ['v1.01',
+'v1.1'])
+```
+
+This should allow you to deploy individual services to the cluster without
+having to redeploy all of them.  Services which are dependent on other services
+being available should use either systemd After hooks or be resilient to those
+services not being available.  Some basic scripting capabilities are provided
+for this.
+
+```sh
+cap fleet:ensure_available['service_name']
+```
+
+or
+
+```ruby
+FleetCaptain.ensure_available('service_name')
+```
+
+Will return a non-zero exit status if the service is NOT available.
+
+## Running Migrations, Tasks and Consoles
+
+# TODO
+
 ## Installation
 
 Add this line to your application's Gemfile:

@@ -7,6 +7,24 @@ module FleetCaptain
   autoload :FleetClient,  'fleet_captain/fleet_client'
   autoload :AwsClient,    'fleet_captain/aws_client'
   autoload :DSL,          'fleet_captain/dsl'
+  autoload :Service,      'fleet_captain/service'
+
+  def self.command(&block)
+    FleetCaptain::DSL.module_eval(&block)
+  end
+
+  def self.services
+    Service.services
+  end
+
+  def self.fleet_eval(fleetfile_contents)
+    DSL.send(:eval, fleetfile_contents)
+    services
+  end
+
+  def self.fleetfile(filename = 'Fleetfile')
+    fleet_eval(File.read(filename))
+  end
 
   def self.docker_repo_url(**args)
     String.new.tap do |str|

@@ -14,7 +14,7 @@ describe FleetCaptain::DSL do
     FleetCaptain::DSL.service(service_name)
   }
 
-  after { FleetCaptain::Service.reset }
+  after { FleetCaptain::Service.services.clear }
 
   describe '.[]' do
     before { singleton_service }
@@ -25,7 +25,7 @@ describe FleetCaptain::DSL do
 
     context 'when service is updated' do
       it 'updates the service registry entry' do
-        expect { singleton_service.instances(2) }
+        expect { singleton_service.instances = 2 }
           .to_not change { FleetCaptain::Service[service_name] }
       end
     end
@@ -54,19 +54,19 @@ describe FleetCaptain::DSL do
   describe '#container_name' do
     context 'when a singleton service' do
       it 'adds a hex id to the end of the name' do
-        expect(singleton_service.container_name).to match /app_name-[0-9a-f]{6,}/
+        expect(singleton_service.container_name).to match(/app_name-[0-9a-f]{6,}/)
       end
     end
     
     context 'when a template service' do
       it 'adds a hex id to the end of the name' do
-        expect(template_service.container_name).to match /app_name-[0-9a-f]{6,}/
+        expect(template_service.container_name).to match(/app_name-[0-9a-f]{6,}/)
       end
     end
   end
 
   describe '#command behavior' do
-    subject { FleetCaptain::Service.new('service_name') }
+    subject { FleetCaptain::DSL::ServiceFactory.build('service_name') }
     before  { FleetCaptain::DSL.container 'hackuman/test' }
 
     it 'add strings directly to the command list' do
