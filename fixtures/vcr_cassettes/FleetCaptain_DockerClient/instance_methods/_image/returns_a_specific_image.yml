@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.16.1
+      - Swipely/Docker-API 1.17.0
       Content-Type:
       - text/plain
   response:
@@ -21,15 +21,15 @@ http_interactions:
       Job-Name:
       - info
       Date:
-      - Fri, 05 Dec 2014 20:52:00 GMT
+      - Fri, 19 Dec 2014 17:27:52 GMT
       Content-Length:
       - '493'
     body:
       encoding: UTF-8
       string: |
-        {"Containers":36,"Debug":1,"Driver":"aufs","DriverStatus":[["Root Dir","/mnt/sda1/var/lib/docker/aufs"],["Dirs","403"]],"ExecutionDriver":"native-0.2","IPv4Forwarding":1,"Images":321,"IndexServerAddress":"https://index.docker.io/v1/","InitPath":"/usr/local/bin/docker","InitSha1":"","KernelVersion":"3.16.4-tinycore64","MemoryLimit":1,"NEventsListener":0,"NFd":11,"NGoroutines":13,"OperatingSystem":"Boot2Docker 1.3.0 (TCL 5.4); master : a083df4 - Thu Oct 16 17:05:03 UTC 2014","SwapLimit":1}
+        {"Containers":36,"Debug":1,"Driver":"aufs","DriverStatus":[["Root Dir","/mnt/sda1/var/lib/docker/aufs"],["Dirs","430"]],"ExecutionDriver":"native-0.2","IPv4Forwarding":1,"Images":348,"IndexServerAddress":"https://index.docker.io/v1/","InitPath":"/usr/local/bin/docker","InitSha1":"","KernelVersion":"3.16.4-tinycore64","MemoryLimit":1,"NEventsListener":0,"NFd":11,"NGoroutines":13,"OperatingSystem":"Boot2Docker 1.3.0 (TCL 5.4); master : a083df4 - Thu Oct 16 17:05:03 UTC 2014","SwapLimit":1}
     http_version: 
-  recorded_at: Fri, 05 Dec 2014 20:51:57 GMT
+  recorded_at: Fri, 19 Dec 2014 17:27:54 GMT
 - request:
     method: get
     uri: https://192.168.59.103:2376/v1.15/images/hackuman/merchandiser:production/json
@@ -38,7 +38,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.16.1
+      - Swipely/Docker-API 1.17.0
       Content-Type:
       - text/plain
   response:
@@ -49,13 +49,13 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 05 Dec 2014 20:52:00 GMT
+      - Fri, 19 Dec 2014 17:27:52 GMT
       Content-Length:
       - '1628'
     body:
       encoding: UTF-8
       string: |
-        {"Architecture":"amd64","Author":"","Comment":"","Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","bin/start"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["HOME=/","PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/rubies/ruby-2.1.2/bin"],"ExposedPorts":{"80/tcp":{}},"Hostname":"b756a5b3138f","Image":"526d3bc664b2206c5e387078cfe57f16f40889f498257bb7c94eae03a8c9bf2f","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":[],"OpenStdin":false,"PortSpecs":null,"SecurityOpt":null,"StdinOnce":false,"Tty":false,"User":"","Volumes":null,"WorkingDir":"/app"},"Container":"bde0b034fad9d9bbfa45d79aa873607536d4cafe2562831613ce1b17516c71bb","ContainerConfig":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","#(nop) CMD [/bin/sh -c bin/start]"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["HOME=/","PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/rubies/ruby-2.1.2/bin"],"ExposedPorts":{"80/tcp":{}},"Hostname":"b756a5b3138f","Image":"526d3bc664b2206c5e387078cfe57f16f40889f498257bb7c94eae03a8c9bf2f","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":[],"OpenStdin":false,"PortSpecs":null,"SecurityOpt":null,"StdinOnce":false,"Tty":false,"User":"","Volumes":null,"WorkingDir":"/app"},"Created":"2014-11-10T17:29:47.576450761Z","DockerVersion":"1.3.0","Id":"8e63f0ec1c7aeec0f6d26d78b1beddf00be326fb5fd8af2ab6e3f08b06a00fc5","Os":"linux","Parent":"526d3bc664b2206c5e387078cfe57f16f40889f498257bb7c94eae03a8c9bf2f","Size":0,"VirtualSize":1264959112}
+        {"Architecture":"amd64","Author":"","Comment":"","Config":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","bin/start"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["HOME=/","PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/rubies/ruby-2.1.2/bin"],"ExposedPorts":{"80/tcp":{}},"Hostname":"b756a5b3138f","Image":"dba68a4455d1382a1a57592087b6b12b84ae4a44759c4319d01f5ebb713d9460","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":[],"OpenStdin":false,"PortSpecs":null,"SecurityOpt":null,"StdinOnce":false,"Tty":false,"User":"","Volumes":null,"WorkingDir":"/app"},"Container":"a6a6b312ed95486d396e7d50ea276bf4e182194faaa7a5268e892482b4534412","ContainerConfig":{"AttachStderr":false,"AttachStdin":false,"AttachStdout":false,"Cmd":["/bin/sh","-c","#(nop) CMD [/bin/sh -c bin/start]"],"CpuShares":0,"Cpuset":"","Domainname":"","Entrypoint":null,"Env":["HOME=/","PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/rubies/ruby-2.1.2/bin"],"ExposedPorts":{"80/tcp":{}},"Hostname":"b756a5b3138f","Image":"dba68a4455d1382a1a57592087b6b12b84ae4a44759c4319d01f5ebb713d9460","Memory":0,"MemorySwap":0,"NetworkDisabled":false,"OnBuild":[],"OpenStdin":false,"PortSpecs":null,"SecurityOpt":null,"StdinOnce":false,"Tty":false,"User":"","Volumes":null,"WorkingDir":"/app"},"Created":"2014-12-08T17:37:32.209540006Z","DockerVersion":"1.3.0","Id":"98215717c018a522783e82b2310ec2a337edab439d5734dc01460323b48b048c","Os":"linux","Parent":"dba68a4455d1382a1a57592087b6b12b84ae4a44759c4319d01f5ebb713d9460","Size":0,"VirtualSize":1269910712}
     http_version: 
-  recorded_at: Fri, 05 Dec 2014 20:51:57 GMT
+  recorded_at: Fri, 19 Dec 2014 17:27:54 GMT
 recorded_with: VCR 2.9.3

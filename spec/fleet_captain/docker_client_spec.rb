@@ -40,10 +40,10 @@ describe FleetCaptain::DockerClient do
   context 'instance_methods' do
     let(:credentials) {
       {
-        username:      "doofus",
-        password:      "doofus",
+        username:      "stephenprater",
+        password:      "doobyfletcher",
         serveraddress: "https://index.docker.io/v1/",
-        email:         "loser@hotmail.com"
+        email:         "me@stephenprater.com"
       }
     }
 
@@ -67,10 +67,40 @@ describe FleetCaptain::DockerClient do
     end
 
     describe '#authenticate!' do
-      let(:auth_object) { "{\"Status\":\"Login Succeeded\"}\n" }
+      context 'when successfull' do
+        it 'returns a docker authentication hash', :vcr do
+          expect( docker.authenticate!(credentials) ).to eq credentials
+        end
+      end
 
-      it 'returns a docker authentication object', :vcr do
-        expect( docker.authenticate!(credentials) ).to eq auth_object
+      context 'when unsuccessful' do
+        let(:bad_credentials) {
+          {
+            username:      "stephenprater",
+            password:      "password",
+            serveraddress: "https://index.docker.io/v1/",
+            email:         "me@stephenprater.com"
+          }
+        }
+
+        it 'raises a 401', :vcr do
+          expect{ docker.authenticate!(bad_credentials) }.to raise_error Docker::Error::UnauthorizedError
+        end
+      end
+
+      context 'when account does not exist' do
+        let(:bad_credentials) {
+          {
+            username:      "stupidstupidstupidstupid",
+            password:      "password",
+            serveraddress: "https://index.docker.io/v1/",
+            email:         "stupidstupidstupidstupidstupidstupid@stupid.stupid"
+          }
+        }
+
+        it 'creates the account, but raises an error in this client', :vcr do
+          expect{ docker.authenticate!(bad_credentials) }.to raise_error FleetCaptain::DockerError
+        end
       end
     end
 

@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.16.1
+      - Swipely/Docker-API 1.17.0
       Content-Type:
       - text/plain
   response:
@@ -21,15 +21,15 @@ http_interactions:
       Job-Name:
       - info
       Date:
-      - Fri, 05 Dec 2014 20:51:58 GMT
+      - Fri, 19 Dec 2014 17:27:49 GMT
       Content-Length:
       - '493'
     body:
       encoding: UTF-8
       string: |
-        {"Containers":2,"Debug":1,"Driver":"aufs","DriverStatus":[["Root Dir","/mnt/sda1/var/lib/docker/aufs"],["Dirs","403"]],"ExecutionDriver":"native-0.2","IPv4Forwarding":1,"Images":321,"IndexServerAddress":"https://index.docker.io/v1/","InitPath":"/usr/local/bin/docker","InitSha1":"","KernelVersion":"3.16.4-tinycore64","MemoryLimit":1,"NEventsListener":0,"NFd":11,"NGoroutines":13,"OperatingSystem":"Boot2Docker 1.3.0 (TCL 5.4); master : a083df4 - Thu Oct 16 17:05:03 UTC 2014","SwapLimit":1}
+        {"Containers":36,"Debug":1,"Driver":"aufs","DriverStatus":[["Root Dir","/mnt/sda1/var/lib/docker/aufs"],["Dirs","430"]],"ExecutionDriver":"native-0.2","IPv4Forwarding":1,"Images":348,"IndexServerAddress":"https://index.docker.io/v1/","InitPath":"/usr/local/bin/docker","InitSha1":"","KernelVersion":"3.16.4-tinycore64","MemoryLimit":1,"NEventsListener":0,"NFd":11,"NGoroutines":13,"OperatingSystem":"Boot2Docker 1.3.0 (TCL 5.4); master : a083df4 - Thu Oct 16 17:05:03 UTC 2014","SwapLimit":1}
     http_version: 
-  recorded_at: Fri, 05 Dec 2014 20:51:55 GMT
+  recorded_at: Fri, 19 Dec 2014 17:27:52 GMT
 - request:
     method: get
     uri: https://192.168.59.103:2376/v1.15/images/json
@@ -38,7 +38,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Swipely/Docker-API 1.16.1
+      - Swipely/Docker-API 1.17.0
       Content-Type:
       - text/plain
   response:
@@ -49,13 +49,13 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 05 Dec 2014 20:51:58 GMT
+      - Fri, 19 Dec 2014 17:27:50 GMT
     body:
       encoding: UTF-8
       string: |-
-        [{"Created":1417635468,"Id":"65972374029e7324127a3e211c4fca4cdd8d6d1b09393f33eaebe23e5d649527","ParentId":"c154f223aa51a9427329e873f6a615e5716f7b0927b73cc0d5db3b04f14f2ce0","RepoTags":["tianon/true:latest"],"Size":0,"VirtualSize":125}
-        ,{"Created":1417622693,"Id":"6d369ae9ddef62aebe8fbd5e0c3a2b5be6096f46e62953e4787ebd6f0d249dbb","ParentId":"fe8d782094431737f45fc5a66feb2cad153cd80fdb4057a578969764b0d2411d","RepoTags":["hackuman/behavioral:production","hackuman/behavioral:staging"],"Size":0,"VirtualSize":1291998921}
-            ]
+        [{"Created":1419004246,"Id":"331372a6fe9ff451fc331302ac9ee29959cfa7bb722b91715579a9c72e79013b","ParentId":"e72ac664f4f0c6a061ac4ef332557a70d69b0c624b6add35f1c181ff7fff2287","RepoTags":["hackuman/test:thing"],"Size":114,"VirtualSize":2433417}
+        ,{"Created":1418060252,"Id":"98215717c018a522783e82b2310ec2a337edab439d5734dc01460323b48b048c","ParentId":"dba68a4455d1382a1a57592087b6b12b84ae4a44759c4319d01f5ebb713d9460","RepoTags":["hackuman/merchandiser:previous","hackuman/merchandiser:production"],"Size":0,"VirtualSize":1269910712}
+                ]
     http_version: 
-  recorded_at: Fri, 05 Dec 2014 20:51:55 GMT
+  recorded_at: Fri, 19 Dec 2014 17:27:52 GMT
 recorded_with: VCR 2.9.3

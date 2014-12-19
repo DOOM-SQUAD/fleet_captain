@@ -11,6 +11,7 @@ namespace :fleet_captain do
 
   desc 'Started'
   task :started do
+    # Just a hook for your own task
   end
 
   desc 'Connect AWS CloudFormation Client'
@@ -38,6 +39,8 @@ namespace :fleet_captain do
 
   desc 'Built docker Container'
   task :built do
+    # inform the user
+    # Just a hook for your own task
   end
 
   desc 'Update server(s) by setting up a new release.'
@@ -74,7 +77,7 @@ namespace :fleet_captain do
 
   desc 'Finish the deployment, clean up server(s).'
   task :finishing do
-    # inform the user
+    invoke 'fleet:verify'
   end
 
   desc 'Finish the rollback, clean up server(s).'

@@ -1,5 +1,4 @@
 require 'fleet_captain'
-
 require 'vcr'
 
 VCR.configure do |c|

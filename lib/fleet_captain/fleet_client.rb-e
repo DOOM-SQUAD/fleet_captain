@@ -13,10 +13,10 @@ module FleetCaptain
     def_delegators :client, :start, :stop, :unload, :destroy, :status, :load
 
     def initialize(actual, fleet_endpoint, key_file = '~/.ssh/id_rsa')
-      @actual  = actual 
+      @actual   = actual 
+      @client   = Fleet.new(fleet_api_url: fleet_endpoint)
       @key_file = key_file
-      @queue = Queue.new
-      @client = Fleet.new(fleet_api_url: fleet_endpoint)
+      @queue    = Queue.new
     end
 
     def connected?

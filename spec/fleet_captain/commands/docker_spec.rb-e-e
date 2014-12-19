@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'fleet_captain/dsl'
+require 'fleet_captain/commands/docker'
    
 describe FleetCaptain::Commands::Docker do
   let(:service_stub) {

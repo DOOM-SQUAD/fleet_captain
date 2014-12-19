@@ -1,5 +1,6 @@
 require "capistrano"
 require "mkmf"
+require 'rake'
 
 if Rake::Task.tasks.include?("deploy")
   Rake::Task["deploy"].clear_actions
@@ -15,7 +16,6 @@ module Capistrano
     attr_writer :aws_region
 
     def docker(*args)
-      @docker_client ||= FleetCaptain::DockerClient.local
       @docker_client.send(*args)
     end
 
@@ -29,35 +29,39 @@ module Capistrano
 
     module DefaultStrategy
       def fleet_setup(fleet_endpoint)
-        @fleet_client = FleetCaptain::FleetClient.new(actual, fleet_endpoint, public_key)
+        @fleet_client = ::FleetCaptain::FleetClient.new(actual, fleet_endpoint, public_key)
+      end
+
+      def docker_setup
+        @docker_client ||= ::FleetCaptain::DockerClient.local
       end
 
       def aws_setup(name, tags)
-        @cloud = FleetCaptain::AWSClient.new(name, tags)
+        @cloud = ::FleetCaptain::AWSClient.new(name, tags)
       end
 
       def load_fleetfile
-        FleetCaptain.fleetfile
+        ::FleetCaptain.fleetfile
       end
 
       def list_services
-        FleetCaptain.services
+        ::FleetCaptain.services
       end
 
       def new_services
-        FleetCaptain.services not in fleet(:list)
+        # FleetCaptain.services not in fleet(:list)
       end
 
       def changed_services
-        FleetCaptain.services changed from fleet(:list)
+        # FleetCaptain.services changed from fleet(:list)
       end
 
       def stale_services
-        fleet(:list) not in FleetCaptain.services
+        # fleet(:list) not in FleetCaptain.services
       end
       
       def services
-        FleetCaptain.services
+        ::FleetCaptain.services
       end
 
       def provision(&block)
@@ -74,7 +78,6 @@ module Capistrano
         production_image = images.select { |i| i.info['RepoTags'] == production_tag }
         production_image.tag(rollback_tag)
       end
-
 
       def tag(image_id, tag)
         docker :tag, image_id, tag

@@ -21,7 +21,7 @@ http_interactions:
       Job-Name:
       - info
       Date:
-      - Fri, 19 Dec 2014 17:27:49 GMT
+      - Fri, 19 Dec 2014 18:08:39 GMT
       Content-Length:
       - '493'
     body:
@@ -29,10 +29,10 @@ http_interactions:
       string: |
         {"Containers":36,"Debug":1,"Driver":"aufs","DriverStatus":[["Root Dir","/mnt/sda1/var/lib/docker/aufs"],["Dirs","430"]],"ExecutionDriver":"native-0.2","IPv4Forwarding":1,"Images":348,"IndexServerAddress":"https://index.docker.io/v1/","InitPath":"/usr/local/bin/docker","InitSha1":"","KernelVersion":"3.16.4-tinycore64","MemoryLimit":1,"NEventsListener":0,"NFd":11,"NGoroutines":13,"OperatingSystem":"Boot2Docker 1.3.0 (TCL 5.4); master : a083df4 - Thu Oct 16 17:05:03 UTC 2014","SwapLimit":1}
     http_version: 
-  recorded_at: Fri, 19 Dec 2014 17:27:52 GMT
+  recorded_at: Fri, 19 Dec 2014 18:08:42 GMT
 - request:
     method: get
-    uri: https://192.168.59.103:2376/v1.15/images/json
+    uri: https://192.168.59.103:2376/v1.15/info
     body:
       encoding: US-ASCII
       string: ''
@@ -48,14 +48,16 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
+      Job-Name:
+      - info
       Date:
-      - Fri, 19 Dec 2014 17:27:50 GMT
+      - Fri, 19 Dec 2014 18:08:40 GMT
+      Content-Length:
+      - '493'
     body:
       encoding: UTF-8
-      string: |-
-        [{"Created":1419004246,"Id":"331372a6fe9ff451fc331302ac9ee29959cfa7bb722b91715579a9c72e79013b","ParentId":"e72ac664f4f0c6a061ac4ef332557a70d69b0c624b6add35f1c181ff7fff2287","RepoTags":["hackuman/test:thing"],"Size":114,"VirtualSize":2433417}
-        ,{"Created":1418060252,"Id":"98215717c018a522783e82b2310ec2a337edab439d5734dc01460323b48b048c","ParentId":"dba68a4455d1382a1a57592087b6b12b84ae4a44759c4319d01f5ebb713d9460","RepoTags":["hackuman/merchandiser:previous","hackuman/merchandiser:production"],"Size":0,"VirtualSize":1269910712}
-                ]
+      string: |
+        {"Containers":36,"Debug":1,"Driver":"aufs","DriverStatus":[["Root Dir","/mnt/sda1/var/lib/docker/aufs"],["Dirs","430"]],"ExecutionDriver":"native-0.2","IPv4Forwarding":1,"Images":348,"IndexServerAddress":"https://index.docker.io/v1/","InitPath":"/usr/local/bin/docker","InitSha1":"","KernelVersion":"3.16.4-tinycore64","MemoryLimit":1,"NEventsListener":0,"NFd":11,"NGoroutines":13,"OperatingSystem":"Boot2Docker 1.3.0 (TCL 5.4); master : a083df4 - Thu Oct 16 17:05:03 UTC 2014","SwapLimit":1}
     http_version: 
-  recorded_at: Fri, 19 Dec 2014 17:27:52 GMT
+  recorded_at: Fri, 19 Dec 2014 18:08:42 GMT
 recorded_with: VCR 2.9.3

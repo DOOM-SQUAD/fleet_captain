@@ -53,7 +53,12 @@ module FleetCaptain
     end
 
     def authenticate!(**options)
-      @authentication = connection.post('/auth', {}, body: options.to_json)
+      result = JSON.parse(connection.post('/auth', {}, body: options.to_json))
+      if result['Status'] == 'Login Succeeded'
+        @authentication = options
+      else
+        raise FleetCaptain::DockerError, result['Status']
+      end
     end
 
     def authentication
