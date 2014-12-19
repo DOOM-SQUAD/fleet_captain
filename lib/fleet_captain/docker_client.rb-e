@@ -96,11 +96,22 @@ module FleetCaptain
       end
     end
 
-    def push(tag)
-      image(tag).push(authentication, repo_tag: tag)
+    def push(tag, &block)
+      image(tag).push(authentication, repo_tag: tag) do |stream|
+         parse_push_output(stream, &block) unless block.nil?
+      end
     end
 
     private
+
+    def parse_push_output(stream)
+      stream.lines.each do |line|
+        lines = line.split(/(?<=})(?={)/)
+        lines.each do |split_line|
+          yield JSON.parse(split_line)
+        end
+      end
+    end
 
     def parse_build_stream_output(stream)
       stream.lines.each do |line|

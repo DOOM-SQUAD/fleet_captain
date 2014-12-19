@@ -135,7 +135,7 @@ describe FleetCaptain::DockerClient do
 
       it 'outputs raw docker output', :vcr do
         expect { |b| docker.build('spec/fixtures', 'hackuman/test:thing', &b) }
-          .to yield_control.exactly(6).times 
+          .to yield_control.exactly(6).times
       end
     end
 
@@ -146,6 +146,11 @@ describe FleetCaptain::DockerClient do
 
       it 'pushes a named image into a repo', :vcr do
         expect(docker.push('hackuman/test:thing')).to be_a Docker::Image
+      end
+
+      it 'outputs push output', :vcr do
+        expect { |b| docker.push('hackuman/test:thing', &b) }
+          .to yield_control.exactly(14).times
       end
     end
   end
