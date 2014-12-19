@@ -1,7 +1,0 @@
-container 'hackuman/test'
-
-service 'hello_world' do
-  container 'busybox'
-  description "Hello World"
-  start run: ['bin/sh -c "while true; do echo Hello World; sleep 1; done"']
-end
