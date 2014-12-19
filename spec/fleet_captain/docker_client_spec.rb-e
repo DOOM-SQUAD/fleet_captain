@@ -8,6 +8,7 @@ describe FleetCaptain::DockerClient do
 
     context 'when docker should connect locally' do
       before do
+        FleetCaptain::DockerClient.reset
         allow(ENV).to receive(:[]).with('DOCKER_HOST').and_return(nil)
         allow(FleetCaptain::DockerClient).to receive(:new).with(no_args).and_return(docker_double)
       end
