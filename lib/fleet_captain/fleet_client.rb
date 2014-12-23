@@ -2,19 +2,20 @@ require 'fleet'
 require 'forwardable'
 require 'net/ssh'
 require 'thread'
+require 'sshkit/dsl'
 
 module FleetCaptain
   class FleetClient
     class ConnectionError < StandardError; end
     extend Forwardable
 
-    attr_reader :actual, :client, :queue
+    attr_reader :actual, :client, :queue, :cluster
 
     def_delegators :client, :start, :stop, :unload, :destroy, :status, :load
 
-    def initialize(actual, fleet_endpoint: "http://localhost:10001",
-                           key_file: '~/.ssh/bork-knife-ec2.pem')
-      @actual   = actual 
+    def initialize(cluster, fleet_endpoint: "http://localhost:10001",
+                           key_file: '~/.ssh/id_rsa')
+      @cluster  = cluster 
       @client   = Fleet.new(fleet_api_url: fleet_endpoint, adapter: :excon)
       @key_file = key_file
       @queue    = Queue.new
@@ -22,6 +23,18 @@ module FleetCaptain
 
     def connected?
       @connected
+    end
+
+    def actual
+      return @actual if @actual
+      instances = FleetCaptain.cloud_client.new(cluster).instances
+      establish_ssh_tunnel!(instances.first.public_dns_name)
+      loop until queue.pop
+      require 'pry'; binding.pry
+      res = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
+      # get the machine list from the etcd cluster
+      # then parse out the leader and establish a tunnel to that machine
+      JSON.parse(res.body)
     end
 
     def connect
@@ -43,10 +56,11 @@ module FleetCaptain
       @connected = false
     end
 
-    def establish_ssh_tunnel!
+    def establish_ssh_tunnel!(host = @actual)
       @tunnel = Thread.new do
-        session = Net::SSH.start(actual, 'core', keys: @key_file)
+        session = Net::SSH.start(host, 'core', keys: @key_file)
         session.forward.local(10001, "localhost", 4001)
+        session.forward.local(10002, "localhost", 7001)
         queue << :ready
         session.loop { puts 'hi'; true }
       end

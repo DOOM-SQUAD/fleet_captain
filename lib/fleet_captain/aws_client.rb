@@ -40,9 +40,13 @@ module FleetCaptain
       # retrieve all of the ec2 instances in this stack and a public / private
       # ip mapping.  we will need to tunnel into the actual etcd master in
       # order to make this work.
-      ec2_client.instances.tagged('Name')
-        .tagged_values('Test-Stack').map { 
-          |i| { i.public_ip_address => i.private_ip_address } }
+      ec2_service.instances.tagged('Name').tagged_values(stack_name)
+    end
+
+    def ip_addresses
+      instances.each.with_object({}) { |i, memo|
+        memo[i.private_ip_address] = i.public_ip_address
+      } 
     end
 
     def find
@@ -64,11 +68,15 @@ module FleetCaptain
     end
 
     def ec2_client
-      @ec2_client ||= AWS::EC2.new(
+      @ec2_client ||= ec2_service.client
+    end
+
+    def ec2_service
+      @ec2_service ||= AWS::EC2.new(
         access_key_id: config.access_key_id,
         secret_access_key: config.secret_access_key,
         region: config.region
-      ).client
+      )
     end
 
     def client

@@ -1,11 +1,19 @@
 require 'spec_helper'
 
+FleetCaptain::AwsClient.config do |c|
+  c.access_key_id = 'AKIAIQPPJCPWBSL24U3A'
+  c.secret_access_key = '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'
+  c.region = 'us-east-1'
+end
+
+
 describe FleetCaptain::FleetClient do
-  #include_context 'ssh connection established'
+  include_context 'ssh connection established'
+
   
-  let(:fleet_client) {
-    FleetCaptain::FleetClient.new('ec2-54-146-31-143.compute-1.amazonaws.com', key_file: '~/.ssh/bork-knife-ec2.pem')
-  }
+  #let(:fleet_client) {
+  #  FleetCaptain::FleetClient.new('ec2-54-146-31-143.compute-1.amazonaws.com', key_file: '~/.ssh/bork-knife-ec2.pem')
+  #}
 
   let(:expected) {
     {"action"=>"get", 
@@ -35,8 +43,25 @@ describe FleetCaptain::FleetClient do
 
   describe 'connecting to the fleet', :live do
     it 'can retrieve a list of machines' do
-      require 'pry'; binding.pry
       expect(fleet_client.machines.length).to be 3
+    end
+  end
+
+  describe 'actual', :live do
+    before do
+      FleetCaptain::AwsClient.configure do |c|
+        c.access_key_id = 'AKIAIQPPJCPWBSL24U3A'
+        c.secret_access_key = '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'
+        c.region = 'us-east-1'
+      end
+    end
+
+    let(:fleet_client) {
+      FleetCaptain::FleetClient.new('Test-Stack', key_file: '~/.ssh/bork-knife-ec2.pem')
+    }
+
+    it 'dynamically determines the etcd cluster leader' do
+      expect(fleet_client.actual).to eq 'ec2-54-87-71-129.compute-1.amazonaws.com'
     end
   end
 end

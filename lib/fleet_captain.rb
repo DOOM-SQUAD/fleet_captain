@@ -16,6 +16,14 @@ module FleetCaptain
     FleetCaptain::DSL.module_eval(&block)
   end
 
+  def self.cloud_client
+    AwsClient
+  end
+
+  def self.container_client
+    DockerClient
+  end
+
   def self.services
     Service.services
   end
