@@ -39,6 +39,13 @@ describe FleetCaptain::AwsClient do
     end
   end
 
+  describe '#instances' do
+    it 'returns the instances in the cluster' do
+      require 'pry'; binding.pry
+      expect(subject.instances.length).to eq 3
+    end
+  end
+
   describe '#cluster_size' do
     it 'rejects out of range numeric types' do
       expect { subject.cluster_size = 99 }

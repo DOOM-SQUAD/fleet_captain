@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe FleetCaptain::FleetClient do
+  #include_context 'ssh connection established'
+  
+  let(:fleet_client) {
+    FleetCaptain::FleetClient.new('ec2-54-146-31-143.compute-1.amazonaws.com', key_file: '~/.ssh/bork-knife-ec2.pem')
+  }
+
   let(:expected) {
     {"action"=>"get", 
      "node"=>{"key"=>"/_coreos.com/fleet/unit", 
@@ -14,21 +20,6 @@ describe FleetCaptain::FleetClient do
               "createdIndex"=>633}}
   }
 
-  let(:fleet_client) {
-    FleetCaptain::FleetClient.new('www.app.com', 'http://127.0.0.1:4001')
-  }
-
-  before do
-    # pretend the SSH tunnel is setup
-    #
-    # NOTE:  If you rerecord the cassettes you will need to ACTUALLY
-    # establish an SSH tunnel.
-    
-    allow(fleet_client).to receive(:queue).and_return([])
-    allow(fleet_client).to receive(:establish_ssh_tunnel!) do
-      fleet_client.queue << :ready
-    end
-  end
 
   it 'connects to the fleet actual via ssh tunnel', :vcr do
     expect(fleet_client.list).to eq expected
@@ -40,5 +31,12 @@ describe FleetCaptain::FleetClient do
     end
 
     expect { fleet_client.list }.to raise_error FleetCaptain::FleetClient::ConnectionError
+  end
+
+  describe 'connecting to the fleet', :live do
+    it 'can retrieve a list of machines' do
+      require 'pry'; binding.pry
+      expect(fleet_client.machines.length).to be 3
+    end
   end
 end

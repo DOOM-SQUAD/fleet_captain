@@ -1,5 +1,7 @@
 require 'active_support/core_ext/object/blank'
 
+require 'fleet_captain/available_methods'
+
 module FleetCaptain
   class DockerError < StandardError; end
 
@@ -8,6 +10,7 @@ module FleetCaptain
   autoload :AwsClient,    'fleet_captain/aws_client'
   autoload :DSL,          'fleet_captain/dsl'
   autoload :Service,      'fleet_captain/service'
+  autoload :UnitFile,     'fleet_captain/unit_file'
 
   def self.command(&block)
     FleetCaptain::DSL.module_eval(&block)

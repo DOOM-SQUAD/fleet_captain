@@ -118,7 +118,10 @@ your Fleetfile an error will be raised. (This behavior should be configurable.)
 4) It will begin a rolling restart of your units - this works by stopping each
 individual instance of a service and waiting for it to finish restarting before
 restarting the next unit.  A service with a single instance cannot be "rolling
-restarted."
+restarted." If you have a critical service that must remain up, but only runs
+one instance of itself, you can do a 'green/blue' deploy of that particular
+service. Specify this by using the setting the "instances" property of your
+Fleetfile unit definition to `true`
 
 5) As all of the services start up, they will register themselves with the etcd
 cluster as available under the release's tag.  When the etcd cluster available

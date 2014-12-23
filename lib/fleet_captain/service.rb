@@ -19,6 +19,10 @@ module FleetCaptain
       Commands::Docker
     end
 
+    def self.from_unit(text)
+      FleetCaptain::UnitFile.parse(text)
+    end
+
     attr_accessor :container, :hash_slice_length, :instances, :name
 
     def initialize(service_name, hash_slice_length = -1)
@@ -37,10 +41,19 @@ module FleetCaptain
       @instances > 1
     end
 
+    def ==(other)
+      self.unit_hash == other.unit_hash
+    end
+
     def method_missing(directive, *values, &block)
       ivar_name = directive.to_s.chomp("=")
       if FleetCaptain.available_methods.include? ivar_name
-        instance_variable_set :"@#{ivar_name}", to_command(values)
+        ivar = instance_variable_get :"@#{ivar_name}"
+        if ivar.present?
+          ivar.concat to_command(values)
+        else
+          instance_variable_set :"@#{ivar_name}", to_command(values)
+        end
       else
         super(directive, *values, &block)
       end

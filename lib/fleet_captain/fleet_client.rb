@@ -12,9 +12,10 @@ module FleetCaptain
 
     def_delegators :client, :start, :stop, :unload, :destroy, :status, :load
 
-    def initialize(actual, fleet_endpoint, key_file = '~/.ssh/id_rsa')
+    def initialize(actual, fleet_endpoint: "http://localhost:10001",
+                           key_file: '~/.ssh/bork-knife-ec2.pem')
       @actual   = actual 
-      @client   = Fleet.new(fleet_api_url: fleet_endpoint)
+      @client   = Fleet.new(fleet_api_url: fleet_endpoint, adapter: :excon)
       @key_file = key_file
       @queue    = Queue.new
     end
@@ -45,15 +46,29 @@ module FleetCaptain
     def establish_ssh_tunnel!
       @tunnel = Thread.new do
         session = Net::SSH.start(actual, 'core', keys: @key_file)
-        session.forward.local(4001, "127.0.0.1", 4001)
+        session.forward.local(10001, "localhost", 4001)
         queue << :ready
-        session.loop { true }
+        session.loop { puts 'hi'; true }
       end
+    end
+
+    def submit(service)
+      connect unless connected?
+      @client.create_unit(service.unit_hash, service.to_unit)
+    end
+
+    def machines
+      connect unless connected?
+      @client.list_machines
     end
 
     def list
       connect unless connected?
-      @client.list_units
+      response = @client.list_units
+      Set.new(response['node']['nodes'].map { |unit|
+        unit_text = JSON.parse(unit['value'])['Raw']
+        FleetCaptain::Service.from_unit(unit_text)
+      })
     end
   end
 end

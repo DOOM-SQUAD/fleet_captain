@@ -13,51 +13,55 @@ load File.expand_path("../tasks/docker.rake", __FILE__)
 
 module Capistrano
   class FleetCaptain < Capistrano::SCM
-    attr_writer :aws_region
-
-    def docker(*args)
-      @docker_client.send(*args)
+    def docker(*args, &block)
+      docker_client.send(*args, &block)
     end
 
-    def fleet(*args)
-      @fleet_client.send(*args, &block)
+    def fleet(*args, &block)
+      fleet_client.send(*args, &block)
     end
     
     def cloud(*args, &block)
-      @cloud.send(*args, &block)
+      cloud_client.send(*args, &block)
     end
 
     module DefaultStrategy
-      def fleet_setup(fleet_endpoint)
-        @fleet_client = ::FleetCaptain::FleetClient.new(actual, fleet_endpoint, public_key)
+      attr_accessor :fleet_client, :docker_client, :cloud_client
+
+      def fleet_client
+        @fleet_client ||= ::FleetCaptain::FleetClient.new(context.fetch(:fleet_endpoint))
       end
 
-      def docker_setup
+      def docker_client
         @docker_client ||= ::FleetCaptain::DockerClient.local
       end
 
-      def aws_setup(name, tags)
-        @cloud = ::FleetCaptain::AWSClient.new(name, tags)
+      def cloud_client
+        @cloud_client ||= ::FleetCaptain::AWSClient.new(context.fetch(:name), 
+                                                        context.fetch(:tags))
       end
 
       def load_fleetfile
         ::FleetCaptain.fleetfile
       end
 
-      def list_services
-        ::FleetCaptain.services
-      end
-
       def new_services
         # FleetCaptain.services not in fleet(:list)
+        services - fleet(:list)
       end
 
       def changed_services
         # FleetCaptain.services changed from fleet(:list)
+        services - fleet(:list)
       end
 
       def stale_services
         # fleet(:list) not in FleetCaptain.services
+        services - fleet(:list)
+      end
+
+      def all_services
+        fleet(:list) | services
       end
       
       def services

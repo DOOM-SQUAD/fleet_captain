@@ -3,12 +3,6 @@ namespace :fleet do
     @strategy ||= Capistrano::FleetCaptain.new(self, fetch(:fleet_strategy, Capistrano::FleetCaptain::DefaultStrategy))
   end
 
-  task :connect do
-    strategy.fleet_setup(fetch(:actual), 
-                         fetch(:fleet_endpoint, 'http://127.0.0.1:4001'),
-                         fetch(:public_key, '~/.ssh/id_rsa')) 
-  end
-
   task :deploy do
     %w( loading loaded
         registering registered
@@ -30,6 +24,7 @@ namespace :fleet do
   task :registering do
     strategy.new_services.each do |service|
       invoke 'register', service
+      invoke 'start', service
     end
   end
 
@@ -90,7 +85,13 @@ namespace :fleet do
   end
 
   task :update do |service|
+    strategy.stop(service)
+    strategy.remove(service)
     strategy.register(service)
+  end
+
+  task :start do |service|
+    strategy.start(service)
   end
 
   task :remove do |service|
