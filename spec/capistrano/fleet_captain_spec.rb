@@ -45,7 +45,7 @@ describe Capistrano::FleetCaptain do
 
     context 'otherwise' do
       it 'complains bitterly' do
-        expect { subject }.to raise_error Capistrano::FleetCaptain::ConnectionError
+        expect { subject }.to raise_error FleetCaptain::FleetClient::ConnectionError
       end
     end
   end
