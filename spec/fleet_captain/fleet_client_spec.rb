@@ -34,7 +34,6 @@ describe FleetCaptain::FleetClient do
 
   describe 'connecting to the fleet', :live do
     it 'can retrieve a list of machines' do
-      require 'pry'; binding.pry
       expect(fleet_client.machines.length).to be 3
     end
   end
