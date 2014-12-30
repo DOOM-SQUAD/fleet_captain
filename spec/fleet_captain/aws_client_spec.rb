@@ -41,7 +41,6 @@ describe FleetCaptain::AwsClient do
 
   describe '#instances' do
     it 'returns the instances in the cluster' do
-      require 'pry'; binding.pry
       expect(subject.instances.length).to eq 3
     end
   end

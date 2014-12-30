@@ -14,4 +14,8 @@ RSpec.configure do |c|
     VCR.eject_cassette
     VCR.turn_off!
   end
+
+  c.after(:example, live: true) do
+    VCR.turn_on!
+  end
 end

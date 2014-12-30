@@ -21,12 +21,13 @@ describe Capistrano::FleetCaptain do
 
   describe '#docker', :vcr do
     it 'should be a fleetcaptain client' do
-      expect(subject.docker_setup).to be_a ::FleetCaptain::DockerClient
+      require 'pry'; binding.pry
+      expect(subject.docker_client).to be_a ::FleetCaptain::DockerClient
     end
   end
 
-  describe '#fleet_setup', :vcr do
-    subject { cap_object.fleet_setup('http://123.45.67.89:4001') }
+  describe '#fleet_client', :vcr do
+    subject { cap_object.fleet_client }
     it { is_expected.to be_a FleetCaptain::FleetClient }
   end
 
@@ -34,7 +35,7 @@ describe Capistrano::FleetCaptain do
     subject { cap_object.fleet(:list) }
 
     context 'when a fleet client is setup' do
-      before { cap_object.fleet_setup('http://123.45.67.89:4001') }
+      before { cap_object.fleet_client }
 
       it "passes the fleet operation to the client" do
         expect(cap_object.fleet_client).to receive(:list)
@@ -68,7 +69,6 @@ describe Capistrano::FleetCaptain do
 
     before do
       subject.fleet_client = fleet_client
-      require 'pry'; binding.pry
       subject.fleet(:submit, truebox)
       truebox.start = [run: '/bin/bash false']
     end

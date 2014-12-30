@@ -30,7 +30,6 @@ module FleetCaptain
       instances = FleetCaptain.cloud_client.new(cluster).instances
       establish_ssh_tunnel!(instances.first.public_dns_name)
       loop until queue.pop
-      require 'pry'; binding.pry
       res = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
       # get the machine list from the etcd cluster
       # then parse out the leader and establish a tunnel to that machine
