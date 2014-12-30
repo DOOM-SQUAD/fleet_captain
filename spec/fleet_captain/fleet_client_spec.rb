@@ -10,27 +10,18 @@ end
 describe FleetCaptain::FleetClient do
   include_context 'ssh connection established'
 
-  
-  #let(:fleet_client) {
-  #  FleetCaptain::FleetClient.new('ec2-54-146-31-143.compute-1.amazonaws.com', key_file: '~/.ssh/bork-knife-ec2.pem')
-  #}
-
-  let(:expected) {
-    {"action"=>"get", 
-     "node"=>{"key"=>"/_coreos.com/fleet/unit", 
-              "dir"=>true, 
-              "nodes"=>[
-                {"key"=>"/_coreos.com/fleet/unit/e55c0aeb44ba0b68004ceb8a200e685194448b45",
-                 "value"=>"{\"Raw\":\"[Unit]\\nDescription=Hello World\\n\\n[Service]\\nExecStart=/bin/bash -c \\\"while true; do echo \\\\\\\"Hello, world\\\\\\\"; sleep 1; done\\\"\\n\"}",
-                 "modifiedIndex"=>633, 
-                 "createdIndex"=>633}], 
-              "modifiedIndex"=>633, 
-              "createdIndex"=>633}}
+  let(:expected_unit) {
+    FleetCaptain::Service.from_unit(<<-UNIT.strip_heredoc)
+    [Unit]
+    Description=Hello World
+    
+    [Service]
+    ExecStart=/bin/bash -c "while true; do echo \\\"Hello, world\\\"; sleep 1; done"
+    UNIT
   }
 
-
   it 'connects to the fleet actual via ssh tunnel', :vcr do
-    expect(fleet_client.list).to eq expected
+    expect(fleet_client.list.first).to eq expected_unit
   end
 
   it 'raises a connection error if the ssh tunnel cannot be established' do
@@ -43,6 +34,7 @@ describe FleetCaptain::FleetClient do
 
   describe 'connecting to the fleet', :live do
     it 'can retrieve a list of machines' do
+      require 'pry'; binding.pry
       expect(fleet_client.machines.length).to be 3
     end
   end

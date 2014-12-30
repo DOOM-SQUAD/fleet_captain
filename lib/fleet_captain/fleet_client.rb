@@ -33,7 +33,12 @@ module FleetCaptain
       res = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
       # get the machine list from the etcd cluster
       # then parse out the leader and establish a tunnel to that machine
-      JSON.parse(res.body)
+      machines = JSON.parse(res.body)
+      lead = machines.find { |machine| machine.fetch('state', nil) == 'leader' }
+      lead_instance = instances.find { |instance|
+        lead['clientURL'].include? instance.private_ip_address
+      }
+      lead_instance.public_dns_name
     end
 
     def connect
@@ -70,18 +75,40 @@ module FleetCaptain
       @client.create_unit(service.unit_hash, service.to_unit)
     end
 
+    # Node key has a nodes key, which has a list of machines
+    # Every machine has a nodes key, which is a list of units
+    # Every unit has a value key, which is what we want
+    # Fuck you.
     def machines
       connect unless connected?
-      @client.list_machines
+      @client.list_machines['node']['nodes'].map { |machine|
+        machine['nodes'].map { |machine_node|
+          JSON.parse(machine_node['value'])
+        }
+      }.flatten
     end
 
     def list
       connect unless connected?
       response = @client.list_units
       Set.new(response['node']['nodes'].map { |unit|
-        unit_text = JSON.parse(unit['value'])['Raw']
-        FleetCaptain::Service.from_unit(unit_text)
+        service_from_unit(unit)
       })
     end
+
+    private
+
+    def service_from_unit(unit)
+      unit_text = unit['value']
+
+      begin
+        unit_text = JSON.parse(unit_text)['Raw']
+      rescue JSON::ParserError
+        unit_text = JSON.parse("[#{unit_text}]").first
+      end
+
+      FleetCaptain::Service.from_unit(unit_text)
+    end
+
   end
 end
