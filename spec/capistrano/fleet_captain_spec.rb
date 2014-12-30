@@ -21,7 +21,6 @@ describe Capistrano::FleetCaptain do
 
   describe '#docker', :vcr do
     it 'should be a fleetcaptain client' do
-      require 'pry'; binding.pry
       expect(subject.docker_client).to be_a ::FleetCaptain::DockerClient
     end
   end
@@ -45,6 +44,7 @@ describe Capistrano::FleetCaptain do
 
     context 'otherwise' do
       it 'complains bitterly' do
+        raise "This test prompts for a password for some resaon"
         expect { subject }.to raise_error FleetCaptain::FleetClient::ConnectionError
       end
     end

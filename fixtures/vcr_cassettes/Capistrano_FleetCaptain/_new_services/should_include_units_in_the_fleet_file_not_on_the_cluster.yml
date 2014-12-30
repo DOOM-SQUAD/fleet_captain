@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://127.0.0.1:4001/v2/keys/_coreos.com/fleet/unit
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
     body:
       encoding: US-ASCII
       string: ''
