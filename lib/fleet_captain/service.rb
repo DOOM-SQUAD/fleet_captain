@@ -3,6 +3,7 @@ require 'securerandom'
 require 'fleet_captain/commands/docker'
 require 'active_support/configurable'
 require 'active_support/core_ext/hash'
+require 'active_support/core_ext/module/aliasing'
 require 'fleet'
 
 module FleetCaptain
@@ -32,6 +33,13 @@ module FleetCaptain
       @hash_slice_length = hash_slice_length
     end
 
+    alias_attribute :before_start,  :exec_start_pre
+    alias_attribute :start,         :exec_start
+    alias_attribute :after_start,   :exec_start_post
+    alias_attribute :reload,        :exec_reload
+    alias_attribute :stop,          :exec_stop
+    alias_attribute :after_stop,    :exec_stop_post
+
     def container_name
       name_hash = unit_hash[0..hash_slice_length]
       @container_name ||= name.chomp("@") + "-" + name_hash
@@ -58,7 +66,12 @@ module FleetCaptain
         super(directive, *values, &block)
       end
     end
-    
+
+    def respond_to_missing?(method_name, include_private = false)
+      ivar_name = method_name.to_s.chomp("=")
+      FleetCaptain.available_methods.include? ivar_name
+    end
+
     # Fleet directs restart time spans as though they were seconds.
     # Services are built based on json output.  This is the hash used to
     # describe that json.

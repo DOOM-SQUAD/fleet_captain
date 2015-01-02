@@ -40,7 +40,7 @@ module FleetCaptain
       # retrieve all of the ec2 instances in this stack and a public / private
       # ip mapping.  we will need to tunnel into the actual etcd master in
       # order to make this work.
-      ec2_service.instances.tagged('Name').tagged_values(stack_name)
+      ec2_service.instances.with_tag('Name', stack_name)
     end
 
     def ip_addresses

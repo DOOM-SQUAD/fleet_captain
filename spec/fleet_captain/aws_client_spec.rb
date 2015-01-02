@@ -4,7 +4,7 @@ describe FleetCaptain::AwsClient do
   let(:local_template) { File.expand_path(__dir__ + '/../fixtures/core_os_template.json') }
 
   subject do
-    described_class.new('Test Stack', test: 'true') do |c|
+    described_class.new('Test-Stack', test: 'true') do |c|
       c.config.template_url = local_template
     end
   end 
@@ -39,10 +39,19 @@ describe FleetCaptain::AwsClient do
     end
   end
 
-  describe '#instances' do
+  describe '#instances', :vcr do
+    subject do
+      described_class.new('Test-Stack', test: 'true') do |c|
+        c.config.template_url = local_template
+      end
+    end 
+
     it 'returns the instances in the cluster' do
-      expect(subject.instances.length).to eq 3
+      expect(subject.instances.to_a.length).to eq 3
     end
+  end
+
+  describe '#ip_addresses' do
   end
 
   describe '#cluster_size' do
@@ -59,7 +68,7 @@ describe FleetCaptain::AwsClient do
 
   describe '#to_aws_params' do
     let(:expected_params) { {
-      stack_name: 'Test Stack',
+      stack_name: 'Test-Stack',
       template_url: local_template,
       parameters: [
         { parameter_key: 'InstanceType', parameter_value: 'm3.medium' },

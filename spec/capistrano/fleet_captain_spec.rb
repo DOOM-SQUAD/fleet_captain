@@ -33,20 +33,9 @@ describe Capistrano::FleetCaptain do
   describe '#fleet' do
     subject { cap_object.fleet(:list) }
 
-    context 'when a fleet client is setup' do
-      before { cap_object.fleet_client }
-
-      it "passes the fleet operation to the client" do
-        expect(cap_object.fleet_client).to receive(:list)
-        subject
-      end
-    end
-
-    context 'otherwise' do
-      it 'complains bitterly' do
-        raise "This test prompts for a password for some resaon"
-        expect { subject }.to raise_error FleetCaptain::FleetClient::ConnectionError
-      end
+    it "passes the fleet operation to the client" do
+      expect(cap_object.fleet_client).to receive(:list)
+      subject
     end
   end
 
@@ -62,7 +51,7 @@ describe Capistrano::FleetCaptain do
     end
   end
 
-  describe '#changed_services', :live do
+  describe '#changed_services', :vcr do
     include_context 'ssh connection established'
 
     let(:truebox) { FleetCaptain::Service['truebox'] }
@@ -99,7 +88,7 @@ describe Capistrano::FleetCaptain do
     end
 
     it 'contains objects defined only in the Fleetfile' do
-      expect(subject.length).to eq 1
+      expect(subject.length).to eq 2
     end
   end
 
