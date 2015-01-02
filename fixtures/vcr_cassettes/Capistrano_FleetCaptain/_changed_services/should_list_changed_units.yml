@@ -1,43 +1,43 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/be8d0bd9f6b854bd2bf018ced7a16c959678ec56?prevExist=false
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
     body:
       encoding: US-ASCII
-      string: value=%22%5BUnit%5D%5CnDescription%3DTrue+box%5CnName%3Dtruebox%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%2Fusr%2Fbin%2Fdocker+run+--name+truebox-be8d0bd+busybox+bin%2Fbash+true%5CnExecStartPre%3D%2Fusr%2Fbin%2Fdocker+kill+truebox-be8d0bd%5CnExecStartPre%3D%2Fusr%2Fbin%2Fdocker+rm+truebox-be8d0bd%5CnExecStartPre%3D%2Fusr%2Fbin%2Fdocker+pull+truebox-be8d0bd%5CnExecStartPost%3Dcap+fleet%3Aavailable%5B%25n%5D%5CnExecStop%3D%2Fusr%2Fbin%2Fdocker+stop+truebox-be8d0bd%5CnExecStopPost%3Dcap+fleet%3Aunavailable%5B%25n%5D%5Cn%22
+      string: ''
     headers:
       User-Agent:
       - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
       Accept:
       - application/json
-      Content-Type:
-      - application/x-www-form-urlencoded
   response:
     status:
-      code: 201
+      code: 200
       message: 
     headers:
       Content-Type:
       - application/json
       X-Etcd-Index:
-      - '1411726'
+      - '1424045'
       X-Raft-Index:
-      - '5548527'
+      - '5596048'
       X-Raft-Term:
       - '8'
       Date:
-      - Fri, 02 Jan 2015 16:43:21 GMT
+      - Fri, 02 Jan 2015 21:36:41 GMT
     body:
       encoding: UTF-8
-      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/unit/be8d0bd9f6b854bd2bf018ced7a16c959678ec56","value":"\"[Unit]\\nDescription=True
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/e55c0aeb44ba0b68004ceb8a200e685194448b45","value":"{\"Raw\":\"[Unit]\\nDescription=Hello
+        World\\n\\n[Service]\\nExecStart=/bin/bash -c \\\"while true; do echo \\\\\\\"Hello,
+        world\\\\\\\"; sleep 1; done\\\"\\n\"}","modifiedIndex":633,"createdIndex":633},{"key":"/_coreos.com/fleet/unit/be8d0bd9f6b854bd2bf018ced7a16c959678ec56","value":"\"[Unit]\\nDescription=True
         box\\nName=truebox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
         run --name truebox-be8d0bd busybox bin/bash true\\nExecStartPre=/usr/bin/docker
         kill truebox-be8d0bd\\nExecStartPre=/usr/bin/docker rm truebox-be8d0bd\\nExecStartPre=/usr/bin/docker
         pull truebox-be8d0bd\\nExecStartPost=cap fleet:available[%n]\\nExecStop=/usr/bin/docker
-        stop truebox-be8d0bd\\nExecStopPost=cap fleet:unavailable[%n]\\n\"","modifiedIndex":1411726,"createdIndex":1411726}}'
+        stop truebox-be8d0bd\\nExecStopPost=cap fleet:unavailable[%n]\\n\"","modifiedIndex":1411726,"createdIndex":1411726}],"modifiedIndex":633,"createdIndex":633}}'
     http_version: 
-  recorded_at: Fri, 02 Jan 2015 16:43:21 GMT
+  recorded_at: Fri, 02 Jan 2015 21:36:41 GMT
 - request:
     method: get
     uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
@@ -57,13 +57,13 @@ http_interactions:
       Content-Type:
       - application/json
       X-Etcd-Index:
-      - '1411726'
+      - '1424045'
       X-Raft-Index:
-      - '5548528'
+      - '5596048'
       X-Raft-Term:
       - '8'
       Date:
-      - Fri, 02 Jan 2015 16:43:21 GMT
+      - Fri, 02 Jan 2015 21:36:41 GMT
     body:
       encoding: UTF-8
       string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/e55c0aeb44ba0b68004ceb8a200e685194448b45","value":"{\"Raw\":\"[Unit]\\nDescription=Hello
@@ -75,5 +75,5 @@ http_interactions:
         pull truebox-be8d0bd\\nExecStartPost=cap fleet:available[%n]\\nExecStop=/usr/bin/docker
         stop truebox-be8d0bd\\nExecStopPost=cap fleet:unavailable[%n]\\n\"","modifiedIndex":1411726,"createdIndex":1411726}],"modifiedIndex":633,"createdIndex":633}}'
     http_version: 
-  recorded_at: Fri, 02 Jan 2015 16:43:21 GMT
+  recorded_at: Fri, 02 Jan 2015 21:36:41 GMT
 recorded_with: VCR 2.9.3

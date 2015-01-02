@@ -1,12 +1,5 @@
 require 'spec_helper'
 
-FleetCaptain::AwsClient.config do |c|
-  c.access_key_id = 'AKIAIQPPJCPWBSL24U3A'
-  c.secret_access_key = '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'
-  c.region = 'us-east-1'
-end
-
-
 describe FleetCaptain::FleetClient, :vcr do
   include_context 'ssh connection established'
 
@@ -39,14 +32,6 @@ describe FleetCaptain::FleetClient, :vcr do
   end
 
   describe 'actual' do
-    before do
-      FleetCaptain::AwsClient.configure do |c|
-        c.access_key_id = 'AKIAIQPPJCPWBSL24U3A'
-        c.secret_access_key = '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'
-        c.region = 'us-east-1'
-      end
-    end
-
     let(:fleet_client) {
       FleetCaptain::FleetClient.new('Test-Stack', key_file: '~/.ssh/bork-knife-ec2.pem')
     }

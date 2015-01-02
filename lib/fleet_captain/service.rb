@@ -4,10 +4,16 @@ require 'fleet_captain/commands/docker'
 require 'active_support/configurable'
 require 'active_support/core_ext/hash'
 require 'active_support/core_ext/module/aliasing'
+require 'active_support/core_ext/class/attribute'
+require 'active_model/attribute_methods'
+require 'active_model/dirty'
 require 'fleet'
 
 module FleetCaptain
   class Service
+    include ActiveModel::AttributeMethods
+    include ActiveModel::Dirty
+
     def self.services
       @services ||= Set.new
     end
@@ -23,6 +29,27 @@ module FleetCaptain
     def self.from_unit(text)
       FleetCaptain::UnitFile.parse(text)
     end
+
+    def self.define_attributes(methods)
+      methods.each do |directive|
+        attr_reader directive
+        
+        define_method "#{directive.underscore}=" do |value|
+          instance_variable_set "@#{directive.underscore}", to_command(value)
+        end
+
+        define_attribute_methods(directive)
+      end
+    end
+
+    def attribute_concat(attr, *values)
+      send(attr).concat(to_command(values))
+    end
+
+    attribute_method_suffix '_concat'
+    define_attributes(UNIT_DIRECTIVES)
+    define_attributes(SERVICE_DIRECTIVES)
+    define_attributes(XFLEET_DIRECTIVES)
 
     attr_accessor :container, :hash_slice_length, :instances, :name
 
@@ -53,25 +80,6 @@ module FleetCaptain
       self.unit_hash == other.unit_hash
     end
 
-    def method_missing(directive, *values, &block)
-      ivar_name = directive.to_s.chomp("=")
-      if FleetCaptain.available_methods.include? ivar_name
-        ivar = instance_variable_get :"@#{ivar_name}"
-        if ivar.present?
-          ivar.concat to_command(values)
-        else
-          instance_variable_set :"@#{ivar_name}", to_command(values)
-        end
-      else
-        super(directive, *values, &block)
-      end
-    end
-
-    def respond_to_missing?(method_name, include_private = false)
-      ivar_name = method_name.to_s.chomp("=")
-      FleetCaptain.available_methods.include? ivar_name
-    end
-
     # Fleet directs restart time spans as though they were seconds.
     # Services are built based on json output.  This is the hash used to
     # describe that json.
@@ -85,7 +93,7 @@ module FleetCaptain
       {}.tap { |hash|
         table.each do |section, directives|
           hash[section] = directives.each_with_object({}) { |k, memo|
-            memo[k] = instance_variable_get :"@#{k.underscore}" 
+            memo[k] = send(k)
           }.compact
         end
       }.select { |k,v| true if v.present? }
@@ -93,6 +101,12 @@ module FleetCaptain
 
     def to_unit
       Fleet::ServiceDefinition.new(@name, to_hash).to_unit['Raw']
+    end
+
+    def attributes
+      FleetCaptain.available_methods.each.with_object({}) do |method, memo|
+        memo[method] = send(method)
+      end
     end
 
     def unit_hash

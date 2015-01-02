@@ -51,19 +51,26 @@ describe Capistrano::FleetCaptain do
     end
   end
 
-  describe '#changed_services', :vcr do
+  describe '#changed_services', :live do
     include_context 'ssh connection established'
 
     let(:truebox) { FleetCaptain::Service['truebox'] }
 
+    # if you are re-recording VCR cassettes, you will need to setup
+    # the cluster by adding the truebox service before your tests
+    # will pass
+
     before do
       subject.fleet_client = fleet_client
-      subject.fleet(:submit, truebox)
-      truebox.start = [run: '/bin/bash false']
     end
 
     it 'should list changed units' do
-      expect(subject.changed_services).to include FleetCaptain::Service['truebox']
+      require 'pry'; binding.pry
+
+      expect { truebox.start = [run: '/bin/bash false'] }
+        .to change { subject.changed_services.to_a }
+        .from([])
+        .to([FleetCaptain::Service['truebox']])
     end
   end
 

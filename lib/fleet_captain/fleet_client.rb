@@ -9,7 +9,7 @@ module FleetCaptain
     class ConnectionError < StandardError; end
     extend Forwardable
 
-    attr_reader :actual, :client, :queue, :cluster
+    attr_reader :client, :queue, :cluster
 
     def_delegators :client, :start, :stop, :unload, :destroy, :status, :load
 
@@ -37,9 +37,9 @@ module FleetCaptain
       lead_instance.public_dns_name
     end
 
-    def connect(host = nil)
+    def connect(host = @actual)
       begin
-        establish_ssh_tunnel!(host || @actual)
+        establish_ssh_tunnel!(host)
         loop until queue.pop
       rescue Exception
         # Yes I really want a rescue Exception here as Queue raises a Fatal
@@ -69,9 +69,8 @@ module FleetCaptain
     # get the machine list from the etcd cluster
     def lead_machine
       return @lead_machine if @lead_machine
-      res      = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
-      machines = JSON.parse(res.body)
-
+      res           = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
+      machines      = JSON.parse(res.body)
       @lead_machine = machines.find { |machine| machine.fetch('state', nil) == 'leader' }
     end
 

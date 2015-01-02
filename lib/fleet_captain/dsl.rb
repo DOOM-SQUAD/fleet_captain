@@ -83,7 +83,11 @@ module FleetCaptain
       def self.define_directives(methods)
         methods.each do |directive|
           define_method directive.underscore do |value|
-            service.send(directive.underscore, value)
+            if service.send(directive.underscore).present?
+              service.send("#{directive.underscore}_concat", value)
+            else
+              service.send("#{directive.underscore}=", value)
+            end
           end
         end
       end

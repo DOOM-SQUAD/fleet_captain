@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "docker-api"
   spec.add_dependency "fleet-api"
   spec.add_dependency "activesupport"
+  spec.add_dependency "activemodel"
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
