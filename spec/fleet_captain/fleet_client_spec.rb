@@ -7,7 +7,7 @@ FleetCaptain::AwsClient.config do |c|
 end
 
 
-describe FleetCaptain::FleetClient do
+describe FleetCaptain::FleetClient, :vcr do
   include_context 'ssh connection established'
 
   let(:expected_unit) {
@@ -32,13 +32,13 @@ describe FleetCaptain::FleetClient do
     expect { fleet_client.list }.to raise_error FleetCaptain::FleetClient::ConnectionError
   end
 
-  describe 'connecting to the fleet', :live do
+  describe 'connecting to the fleet' do
     it 'can retrieve a list of machines' do
       expect(fleet_client.machines.length).to be 3
     end
   end
 
-  describe 'actual', :live do
+  describe 'actual' do
     before do
       FleetCaptain::AwsClient.configure do |c|
         c.access_key_id = 'AKIAIQPPJCPWBSL24U3A'

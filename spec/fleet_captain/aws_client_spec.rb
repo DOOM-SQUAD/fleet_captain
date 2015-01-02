@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FleetCaptain::AwsClient do
+describe FleetCaptain::AwsClient, :vcr do
   let(:local_template) { File.expand_path(__dir__ + '/../fixtures/core_os_template.json') }
 
   subject do

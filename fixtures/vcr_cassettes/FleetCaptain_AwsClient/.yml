@@ -1,0 +1,112 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://s3.amazonaws.com/coreos.com/dist/aws/coreos-stable-pv.template
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 0y4tstRN90UUMEKMWXitQ8UWrA3hGHOAwMs4Crmo+k5nQnj3Ahy8NYt1TfOVQwDqEPw2LVMSRww=
+      X-Amz-Request-Id:
+      - F57DCB17D3DF724D
+      Date:
+      - Fri, 02 Jan 2015 20:48:21 GMT
+      Cache-Control:
+      - public, max-age=1800
+      Content-Language:
+      - en
+      Last-Modified:
+      - Fri, 02 Jan 2015 19:46:10 GMT
+      Etag:
+      - '"b2263a50004ccdf0f322c52714bf32a1"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - application/octet-stream
+      Content-Length:
+      - '4798'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: "{\n  \"AWSTemplateFormatVersion\": \"2010-09-09\",\n  \"Description\":
+        \"CoreOS on EC2: http://coreos.com/docs/running-coreos/cloud-providers/ec2/\",\n
+        \ \"Mappings\" : {\n      \"RegionMap\" : {\n\n          \"eu-central-1\"
+        : {\n              \"AMI\" : \"ami-4e7d4d53\"\n          },\n\n          \"ap-northeast-1\"
+        : {\n              \"AMI\" : \"ami-dccfc0dd\"\n          },\n\n          \"sa-east-1\"
+        : {\n              \"AMI\" : \"ami-c904b4d4\"\n          },\n\n          \"ap-southeast-2\"
+        : {\n              \"AMI\" : \"ami-d7e981ed\"\n          },\n\n          \"ap-southeast-1\"
+        : {\n              \"AMI\" : \"ami-81406fd3\"\n          },\n\n          \"us-east-1\"
+        : {\n              \"AMI\" : \"ami-7e5d3d16\"\n          },\n\n          \"us-west-2\"
+        : {\n              \"AMI\" : \"ami-4fd4857f\"\n          },\n\n          \"us-west-1\"
+        : {\n              \"AMI\" : \"ami-15fae850\"\n          },\n\n          \"eu-west-1\"
+        : {\n              \"AMI\" : \"ami-7a3a840d\"\n          }\n\n      }\n  },\n
+        \ \"Parameters\": {\n    \"InstanceType\" : {\n      \"Description\" : \"EC2
+        PV instance type (m3.medium, etc). Note: m1.small is not supported.\",\n      \"Type\"
+        : \"String\",\n      \"Default\" : \"m3.medium\",\n      \"AllowedValues\"
+        : [\"m3.medium\", \"m3.large\", \"m3.xlarge\", \"m3.2xlarge\", \"m1.medium\",
+        \"m1.large\", \"m1.xlarge\", \"c3.large\", \"c3.xlarge\", \"c3.2xlarge\",
+        \"c3.4xlarge\", \"c3.8xlarge\", \"c1.medium\", \"c1.xlarge\", \"m2.xlarge\",
+        \"m2.2xlarge\", \"m2.4xlarge\", \"hi1.4xlarge\", \"hs1.8xlarge\", \"t1.micro\"],\n
+        \     \"ConstraintDescription\" : \"Must be a valid EC2 PV instance type.
+        Note: m1.small is not supported.\"\n    },\n    \"ClusterSize\": {\n      \"Default\":
+        \"3\",\n      \"MinValue\": \"3\",\n      \"MaxValue\": \"12\",\n      \"Description\":
+        \"Number of nodes in cluster (3-12).\",\n      \"Type\": \"Number\"\n    },\n
+        \   \"DiscoveryURL\": {\n      \"Description\": \"An unique etcd cluster discovery
+        URL. Grab a new token from https://discovery.etcd.io/new\",\n      \"Type\":
+        \"String\"\n    },\n    \"AdvertisedIPAddress\": {\n      \"Description\":
+        \"Use 'private' if your etcd cluster is within one region or 'public' if it
+        spans regions or cloud providers.\",\n      \"Default\": \"private\",\n      \"AllowedValues\":
+        [\"private\", \"public\"],\n      \"Type\": \"String\"\n    },\n    \"AllowSSHFrom\":
+        {\n      \"Description\": \"The net block (CIDR) that SSH is available to.\",\n
+        \     \"Default\": \"0.0.0.0/0\",\n      \"Type\": \"String\"\n    },\n    \"KeyPair\"
+        : {\n      \"Description\" : \"The name of an EC2 Key Pair to allow SSH access
+        to the instance.\",\n      \"Type\" : \"String\"\n    }\n  },\n  \"Resources\":
+        {\n    \"CoreOSSecurityGroup\": {\n      \"Type\": \"AWS::EC2::SecurityGroup\",\n
+        \     \"Properties\": {\n        \"GroupDescription\": \"CoreOS SecurityGroup\",\n
+        \       \"SecurityGroupIngress\": [\n          {\"IpProtocol\": \"tcp\", \"FromPort\":
+        \"22\", \"ToPort\": \"22\", \"CidrIp\": {\"Ref\": \"AllowSSHFrom\"}}\n        ]\n
+        \     }\n    },\n    \"Ingress4001\": {\n      \"Type\": \"AWS::EC2::SecurityGroupIngress\",\n
+        \     \"Properties\": {\n        \"GroupName\": {\"Ref\": \"CoreOSSecurityGroup\"},
+        \"IpProtocol\": \"tcp\", \"FromPort\": \"4001\", \"ToPort\": \"4001\", \"SourceSecurityGroupId\":
+        {\n          \"Fn::GetAtt\" : [ \"CoreOSSecurityGroup\", \"GroupId\" ] \n
+        \       }\n      }\n    },\n    \"Ingress7001\": {\n      \"Type\": \"AWS::EC2::SecurityGroupIngress\",\n
+        \     \"Properties\": {\n        \"GroupName\": {\"Ref\": \"CoreOSSecurityGroup\"},
+        \"IpProtocol\": \"tcp\", \"FromPort\": \"7001\", \"ToPort\": \"7001\", \"SourceSecurityGroupId\":
+        {\n          \"Fn::GetAtt\" : [ \"CoreOSSecurityGroup\", \"GroupId\" ] \n
+        \       } \n      }\n    },\n    \"CoreOSServerAutoScale\": {\n      \"Type\":
+        \"AWS::AutoScaling::AutoScalingGroup\",\n      \"Properties\": {\n        \"AvailabilityZones\":
+        {\"Fn::GetAZs\": \"\"},\n        \"LaunchConfigurationName\": {\"Ref\": \"CoreOSServerLaunchConfig\"},\n
+        \       \"MinSize\": \"3\",\n        \"MaxSize\": \"12\",\n        \"DesiredCapacity\":
+        {\"Ref\": \"ClusterSize\"},\n        \"Tags\": [\n            {\"Key\": \"Name\",
+        \"Value\": { \"Ref\" : \"AWS::StackName\" }, \"PropagateAtLaunch\": true}\n
+        \       ]\n      }\n    },\n    \"CoreOSServerLaunchConfig\": {\n      \"Type\":
+        \"AWS::AutoScaling::LaunchConfiguration\",\n      \"Properties\": {\n        \"ImageId\"
+        : { \"Fn::FindInMap\" : [ \"RegionMap\", { \"Ref\" : \"AWS::Region\" }, \"AMI\"
+        ]},\n        \"InstanceType\": {\"Ref\": \"InstanceType\"},\n        \"KeyName\":
+        {\"Ref\": \"KeyPair\"},\n        \"SecurityGroups\": [{\"Ref\": \"CoreOSSecurityGroup\"}],\n
+        \       \"UserData\" : { \"Fn::Base64\":\n          { \"Fn::Join\": [ \"\",
+        [\n            \"#cloud-config\\n\\n\",\n            \"coreos:\\n\",\n            \"
+        \ etcd:\\n\",\n            \"    discovery: \", { \"Ref\": \"DiscoveryURL\"
+        }, \"\\n\",\n            \"    addr: $\", { \"Ref\": \"AdvertisedIPAddress\"
+        }, \"_ipv4:4001\\n\",\n            \"    peer-addr: $\", { \"Ref\": \"AdvertisedIPAddress\"
+        }, \"_ipv4:7001\\n\",\n            \"  units:\\n\",\n            \"    - name:
+        etcd.service\\n\",\n            \"      command: start\\n\",\n            \"
+        \   - name: fleet.service\\n\",\n            \"      command: start\\n\"\n
+        \           ] ]\n          }\n        }\n      }\n    }\n  }\n}\n"
+    http_version: 
+  recorded_at: Fri, 02 Jan 2015 20:48:20 GMT
+recorded_with: VCR 2.9.3

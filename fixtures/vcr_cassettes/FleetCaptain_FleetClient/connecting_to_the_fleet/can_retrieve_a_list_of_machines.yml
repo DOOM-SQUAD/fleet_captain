@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/machines?consistent=true&recursive=true&sorted=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1422111'
+      X-Raft-Index:
+      - '5588591'
+      X-Raft-Term:
+      - '8'
+      Date:
+      - Fri, 02 Jan 2015 20:50:40 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/machines","dir":true,"nodes":[{"key":"/_coreos.com/fleet/machines/28124cbd34ec4bf8b6937c2b477a5a87","dir":true,"nodes":[{"key":"/_coreos.com/fleet/machines/28124cbd34ec4bf8b6937c2b477a5a87/object","value":"{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"10.171.85.108\",\"Metadata\":{},\"Version\":\"0.8.3\"}","expiration":"2015-01-02T20:51:00.240651973Z","ttl":20,"modifiedIndex":1422105,"createdIndex":552840}],"modifiedIndex":3,"createdIndex":3},{"key":"/_coreos.com/fleet/machines/bffc6fb81d0444fe8a810bbb5487710f","dir":true,"nodes":[{"key":"/_coreos.com/fleet/machines/bffc6fb81d0444fe8a810bbb5487710f/object","value":"{\"ID\":\"bffc6fb81d0444fe8a810bbb5487710f\",\"PublicIP\":\"10.153.237.174\",\"Metadata\":{},\"Version\":\"0.8.3\"}","expiration":"2015-01-02T20:51:06.135586087Z","ttl":26,"modifiedIndex":1422109,"createdIndex":376467}],"modifiedIndex":12,"createdIndex":12},{"key":"/_coreos.com/fleet/machines/e0bd3bc150264c18ab5a1dd7811ca3ae","dir":true,"nodes":[{"key":"/_coreos.com/fleet/machines/e0bd3bc150264c18ab5a1dd7811ca3ae/object","value":"{\"ID\":\"e0bd3bc150264c18ab5a1dd7811ca3ae\",\"PublicIP\":\"10.169.211.140\",\"Metadata\":{},\"Version\":\"0.8.3\"}","expiration":"2015-01-02T20:50:56.568176582Z","ttl":16,"modifiedIndex":1422102,"createdIndex":377087}],"modifiedIndex":49,"createdIndex":49}],"modifiedIndex":3,"createdIndex":3}}'
+    http_version: 
+  recorded_at: Fri, 02 Jan 2015 20:50:40 GMT
+recorded_with: VCR 2.9.3
