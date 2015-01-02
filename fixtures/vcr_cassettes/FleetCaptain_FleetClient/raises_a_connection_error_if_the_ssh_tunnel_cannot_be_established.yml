@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&Filter.1.Name=tag%3AName&Filter.1.Value.1=ec2-54-146-31-143.compute-1.amazonaws.com&Timestamp=2015-01-02T21%3A26%3A51Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '162'
+      User-Agent:
+      - aws-sdk-ruby/1.58.0 ruby/2.1.4 x86_64-darwin13.0
+      X-Amz-Date:
+      - 20150102T212651Z
+      X-Amz-Content-Sha256:
+      - 6fdd3e05196aff141d19d3f1db7b2e658e14c5cf591c75c56efa223f2e59b2a0
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150102/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=f01ef9d5147bac78991d87649026d2fed5a1df8da64b0b01dde9988261e62645
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Fri, 02 Jan 2015 21:26:51 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>f554541e-7ce9-4b9e-9f6c-8873eb3f54c3</requestId>
+            <reservationSet/>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Fri, 02 Jan 2015 21:26:51 GMT
+recorded_with: VCR 2.9.3

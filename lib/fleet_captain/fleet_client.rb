@@ -25,25 +25,21 @@ module FleetCaptain
       @connected
     end
 
+    # Parse out the name of the lead instance for direct connections.
+    #
     def actual
       return @actual if @actual
       instances = FleetCaptain.cloud_client.new(cluster).instances
-      establish_ssh_tunnel!(instances.first.public_dns_name)
-      loop until queue.pop
-      res = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
-      # get the machine list from the etcd cluster
-      # then parse out the leader and establish a tunnel to that machine
-      machines = JSON.parse(res.body)
-      lead = machines.find { |machine| machine.fetch('state', nil) == 'leader' }
+      connect(instances.first.public_dns_name)
       lead_instance = instances.find { |instance|
-        lead['clientURL'].include? instance.private_ip_address
+        lead_machine['clientURL'].include? instance.private_ip_address
       }
       lead_instance.public_dns_name
     end
 
-    def connect
+    def connect(host = nil)
       begin
-        establish_ssh_tunnel!
+        establish_ssh_tunnel!(host || @actual)
         loop until queue.pop
       rescue Exception
         # Yes I really want a rescue Exception here as Queue raises a Fatal
@@ -70,9 +66,21 @@ module FleetCaptain
       end
     end
 
-    def submit(service)
+    # get the machine list from the etcd cluster
+    def lead_machine
+      return @lead_machine if @lead_machine
+      res      = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
+      machines = JSON.parse(res.body)
+
+      @lead_machine = machines.find { |machine| machine.fetch('state', nil) == 'leader' }
+    end
+
+    def list
       connect unless connected?
-      @client.create_unit(service.unit_hash, service.to_unit)
+      response = @client.list_units
+      Set.new(response['node']['nodes'].map { |unit|
+        service_from_unit(unit)
+      })
     end
 
     # Node key has a nodes key, which has a list of machines
@@ -88,12 +96,9 @@ module FleetCaptain
       }.flatten
     end
 
-    def list
+    def submit(service)
       connect unless connected?
-      response = @client.list_units
-      Set.new(response['node']['nodes'].map { |unit|
-        service_from_unit(unit)
-      })
+      @client.create_unit(service.unit_hash, service.to_unit)
     end
 
     private
