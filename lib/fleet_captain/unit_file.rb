@@ -3,9 +3,13 @@ module FleetCaptain
     extend self
     def parse(text)
       text.each_line.with_object(FleetCaptain::Service.new('Unnamed')) do |line, service|
-        directive, command = line.split('=')
+        directive, value = line.split('=')
         if FleetCaptain.available_directives.include? directive
-          service.send("#{directive.underscore}=",command.chomp)
+          if service.send(directive.underscore).present?
+            service.send("#{directive.underscore}_concat", value)
+          else
+            service.send("#{directive.underscore}=", value)
+          end
         end
       end
     end

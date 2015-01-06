@@ -32,33 +32,40 @@ module FleetCaptain
 
     def self.define_attributes(methods)
       methods.each do |directive|
-        attr_reader directive
-        
-        define_method "#{directive.underscore}=" do |value|
-          instance_variable_set "@#{directive.underscore}", to_command(value)
-        end
-
-        define_attribute_methods(directive)
+        method_name = directive.underscore
+        attr_reader method_name
+        define_attribute_methods(method_name)
       end
     end
 
     def attribute_concat(attr, *values)
-      send(attr).concat(to_command(values))
+      if send("#{attr}_multiple?")
+        send(attr).concat(to_command(values))
+      else
+        send("#{attr}=", values.first)
+      end
     end
 
+    def attribute=(attr, value)
+      new_value = to_command(value)
+      unless [new_value, nil].include?(send(attr))
+        send("#{attr}_will_change!")
+      end
+      instance_variable_set "@#{attr}", new_value
+    end
+
+    def attribute_multiple?(attr)
+      FleetCaptain.multi_value_directives.include?(attr)
+    end
+
+    attr_accessor :container, :hash_slice_length, :instances
+
     attribute_method_suffix '_concat'
+    attribute_method_suffix '_multiple?'
+    attribute_method_suffix '='
     define_attributes(UNIT_DIRECTIVES)
     define_attributes(SERVICE_DIRECTIVES)
     define_attributes(XFLEET_DIRECTIVES)
-
-    attr_accessor :container, :hash_slice_length, :instances, :name
-
-    def initialize(service_name, hash_slice_length = -1)
-      @name = service_name
-      @instances = 1
-      @command_parser = self.class.command_parser.new(self)
-      @hash_slice_length = hash_slice_length
-    end
 
     alias_attribute :before_start,  :exec_start_pre
     alias_attribute :start,         :exec_start
@@ -66,6 +73,19 @@ module FleetCaptain
     alias_attribute :reload,        :exec_reload
     alias_attribute :stop,          :exec_stop
     alias_attribute :after_stop,    :exec_stop_post
+
+    def initialize(service_name, hash_slice_length: -1)
+      @name = service_name
+      @instances = 1
+      @command_parser = self.class.command_parser.new(self)
+      @hash_slice_length = hash_slice_length
+      yield self if block_given?
+    end
+
+    def name=(val)
+      name_will_change! unless val == @name
+      @name = val.chomp
+    end
 
     def container_name
       name_hash = unit_hash[0..hash_slice_length]
@@ -78,6 +98,14 @@ module FleetCaptain
 
     def ==(other)
       self.unit_hash == other.unit_hash
+    end
+
+    def hash
+      self.unit_hash.hash
+    end
+
+    def eql?(other)
+      self == other
     end
 
     # Fleet directs restart time spans as though they were seconds.
@@ -93,24 +121,28 @@ module FleetCaptain
       {}.tap { |hash|
         table.each do |section, directives|
           hash[section] = directives.each_with_object({}) { |k, memo|
-            memo[k] = send(k)
+            memo[k] = send(k.underscore)
           }.compact
         end
       }.select { |k,v| true if v.present? }
     end
 
     def to_unit
-      Fleet::ServiceDefinition.new(@name, to_hash).to_unit['Raw']
+      to_service_def.to_unit['Raw']
+    end
+
+    def to_service_def
+      Fleet::ServiceDefinition.new(@name + '.service', to_hash)
     end
 
     def attributes
-      FleetCaptain.available_methods.each.with_object({}) do |method, memo|
+      FleetCaptain.available_methods.each.with_object({}) { |method, memo|
         memo[method] = send(method)
-      end
+      }
     end
 
     def unit_hash
-      @unit_hash ||= Digest::SHA1.hexdigest(to_unit)
+      Digest::SHA1.hexdigest(to_unit)
     end
 
     def to_command(command)
@@ -118,7 +150,7 @@ module FleetCaptain
       when NilClass
         nil
       when String
-        [command]
+        [command.chomp]
       when Symbol, Hash
         [@command_parser.to_command(command)].flatten
       when Array

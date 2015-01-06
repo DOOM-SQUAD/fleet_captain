@@ -48,9 +48,25 @@ module FleetCaptain
     Global
   )
 
+  MULTI_VALUE_DIRECTIVES = %w(
+    ExecStart
+    ExecStartPre
+    ExecStartPost
+    ExecReload
+    ExecStop
+    ExecStopPost
+    After
+    Requires
+    Conflicts
+  )
+
   def self.available_methods
     return @available_methods if @available_methods
     @available_methods = available_directives.map { |name| name.underscore }
+  end
+
+  def self.multi_value_directives
+    @multi_value_directives ||= MULTI_VALUE_DIRECTIVES.map(&:underscore)
   end
   
   def self.available_directives

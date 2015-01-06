@@ -1,0 +1,1082 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/792b2c988e3f62f5e8315ee4484442d3cb7f09f6?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DThe+box+of+truth.%5CnName%3Dtruebox%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%2Fusr%2Fbin%2Fdocker+run+--name+truebox-1+%2Fbin%2Fbash+true%5Cn%22%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671078'
+      X-Raft-Index:
+      - '6540286'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:35 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/unit/792b2c988e3f62f5e8315ee4484442d3cb7f09f6","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box of truth.\\nName=truebox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-1 /bin/bash true\\n\"}","modifiedIndex":1671078,"createdIndex":1671078}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/object?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Name%22%3A%22truebox.service%22%2C%22UnitHash%22%3A%5B121%2C43%2C44%2C152%2C142%2C63%2C98%2C245%2C232%2C49%2C94%2C228%2C72%2C68%2C66%2C211%2C203%2C127%2C9%2C246%5D%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671079'
+      X-Raft-Index:
+      - '6540288'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:35 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/job/truebox.service/object","value":"{\"Name\":\"truebox.service\",\"UnitHash\":[121,43,44,152,142,63,98,245,232,49,94,228,72,68,66,211,203,127,9,246]}","modifiedIndex":1671079,"createdIndex":1671079}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671080'
+      X-Raft-Index:
+      - '6540289'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/truebox.service/target-state","value":"loaded","modifiedIndex":1671080,"createdIndex":1671080}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:35 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671081'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671081}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:36 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:37 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:37 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671083'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671083}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671084'
+      Date:
+      - Tue, 06 Jan 2015 22:25:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671084}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671084'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671084}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671084'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671084}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671084'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1671084}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671086'
+      X-Raft-Index:
+      - '6540302'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/truebox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"inactive\",\"subState\":\"dead\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"792b2c988e3f62f5e8315ee4484442d3cb7f09f6\"}","expiration":"2015-01-06T22:26:09.25079947Z","ttl":30,"modifiedIndex":1671085,"createdIndex":1671085}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671086'
+      X-Raft-Index:
+      - '6540302'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/792b2c988e3f62f5e8315ee4484442d3cb7f09f6","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box of truth.\\nName=truebox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-1 /bin/bash true\\n\"}","modifiedIndex":1671078,"createdIndex":1671078}],"modifiedIndex":633,"createdIndex":633}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671087'
+      X-Raft-Index:
+      - '6540303'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/truebox.service/target-state","value":"loaded","modifiedIndex":1671087,"createdIndex":1671087},"prevNode":{"key":"/_coreos.com/fleet/job/truebox.service/target-state","value":"loaded","modifiedIndex":1671080,"createdIndex":1671080}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:38 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=inactive
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671088'
+      X-Raft-Index:
+      - '6540305'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/truebox.service/target-state","value":"inactive","modifiedIndex":1671088,"createdIndex":1671088},"prevNode":{"key":"/_coreos.com/fleet/job/truebox.service/target-state","value":"loaded","modifiedIndex":1671087,"createdIndex":1671087}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:39 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service?dir=false&recursive=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671089'
+      X-Raft-Index:
+      - '6540306'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:39 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/job/truebox.service","dir":true,"modifiedIndex":1671089,"createdIndex":1671079},"prevNode":{"key":"/_coreos.com/fleet/job/truebox.service","dir":true,"modifiedIndex":1671079,"createdIndex":1671079}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:39 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/792b2c988e3f62f5e8315ee4484442d3cb7f09f6?dir=false&recursive=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1671092'
+      X-Raft-Index:
+      - '6540309'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 22:25:40 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/unit/792b2c988e3f62f5e8315ee4484442d3cb7f09f6","modifiedIndex":1671092,"createdIndex":1671078},"prevNode":{"key":"/_coreos.com/fleet/unit/792b2c988e3f62f5e8315ee4484442d3cb7f09f6","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box of truth.\\nName=truebox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-1 /bin/bash true\\n\"}","modifiedIndex":1671078,"createdIndex":1671078}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 22:25:39 GMT
+recorded_with: VCR 2.9.3

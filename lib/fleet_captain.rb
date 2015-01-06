@@ -4,6 +4,7 @@ require 'fleet_captain/available_methods'
 
 module FleetCaptain
   class DockerError < StandardError; end
+  class ServiceNotRegistered < StandardError; end
 
   autoload :DockerClient, 'fleet_captain/docker_client'
   autoload :FleetClient,  'fleet_captain/fleet_client'

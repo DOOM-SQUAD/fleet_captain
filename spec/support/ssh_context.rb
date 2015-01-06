@@ -8,10 +8,15 @@ shared_context 'ssh connection established' do
     #
     # NOTE:  If you rerecord the cassettes you will need to ACTUALLY
     # establish an SSH tunnel.
+    #
+
+    if subject.respond_to? :fleet_client=
+      subject.fleet_client = fleet_client
+    end
     
-    allow(fleet_client).to receive(:queue).and_return([])
-    allow(fleet_client).to receive(:establish_ssh_tunnel!) do
-      fleet_client.queue << :ready
+    allow(fleet_client).to receive(:connect) do |host|
+      fleet_client.instance_variable_set('@connected', true)
+      fleet_client
     end
   end
 end

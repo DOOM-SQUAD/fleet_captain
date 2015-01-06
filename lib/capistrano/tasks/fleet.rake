@@ -22,10 +22,23 @@ namespace :fleet do
   end
 
   task :registering do
-    strategy.new_services.each do |service|
+    new_locals = strategy.new_locally
+
+    new_locals.each do |service|
       invoke 'register', service
+    end
+
+    invoke 'wait_for_loaded_services', new_locals
+
+    new_locals.each do |service|
       invoke 'start', service
     end
+  end
+
+  task :wait_for_loaded_services do |services|
+    loop until services.all? { |service|
+      strategy.loaded?(service)
+    }
   end
 
   task :registered do
@@ -33,7 +46,7 @@ namespace :fleet do
   end
 
   task :updating do
-    strategy.changed_services.each do |service|
+    strategy.changed_locally.each do |service|
       invoke 'update', service
     end
   end
@@ -49,7 +62,7 @@ namespace :fleet do
   end
 
   task :restarting do
-    strategy.services.each do |service|
+    strategy.remote_services.each do |service|
       invoke 'restart', service
       invoke 'restarted', service
     end

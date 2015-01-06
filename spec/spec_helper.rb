@@ -7,8 +7,8 @@ VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :excon, :faraday, :webmock
   c.configure_rspec_metadata!
-  c.filter_sensitive_data('<AWS_ACCESS_ID>') { ENV['AWS_ACCESS_KEY_ID'] }
-  c.filter_sensitive_data('<AWS_SECRET_KEY>') { ENV['AWS_SECRET_ACCESS_KEY'] }
+  c.filter_sensitive_data('<AWS_ACCESS_ID>') { ENV.fetch('AWS_ACCESS_KEY_ID', 'NO.') }
+  c.filter_sensitive_data('<AWS_SECRET_KEY>') { ENV.fetch('AWS_SECRET_ACCESS_KEY', 'NO.') }
 end
 
 RSpec.configure do |c|

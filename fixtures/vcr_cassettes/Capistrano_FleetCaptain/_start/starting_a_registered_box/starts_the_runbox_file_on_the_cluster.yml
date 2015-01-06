@@ -1,0 +1,1205 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/b70c58b32b6c6f8e281ce783880533d74eab6d1f?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DThe+box+which+runs%5CnName%3Drunbox%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%2Fusr%2Fbin%2Fdocker+run+--name+runbox-a427f90+busybox+%2Fbin%2Fsh+-c+%5C%22while+true%3B+do+echo+%27Hit+CTRL%2BC%27%3B+sleep+1%3B+done%5C%22%5Cn%22%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666865'
+      X-Raft-Index:
+      - '6525554'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 20:58:15 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/unit/b70c58b32b6c6f8e281ce783880533d74eab6d1f","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box which runs\\nName=runbox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name runbox-a427f90 busybox /bin/sh -c \\\"while true; do echo ''Hit
+        CTRL+C''; sleep 1; done\\\"\\n\"}","modifiedIndex":1666865,"createdIndex":1666865}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:14 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/runbox.service/object?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Name%22%3A%22runbox.service%22%2C%22UnitHash%22%3A%5B183%2C12%2C88%2C179%2C43%2C108%2C111%2C142%2C40%2C28%2C231%2C131%2C136%2C5%2C51%2C215%2C78%2C171%2C109%2C31%5D%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666866'
+      X-Raft-Index:
+      - '6525556'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 20:58:15 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/job/runbox.service/object","value":"{\"Name\":\"runbox.service\",\"UnitHash\":[183,12,88,179,43,108,111,142,40,28,231,131,136,5,51,215,78,171,109,31]}","modifiedIndex":1666866,"createdIndex":1666866}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/runbox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666867'
+      X-Raft-Index:
+      - '6525557'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 20:58:15 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/runbox.service/target-state","value":"loaded","modifiedIndex":1666867,"createdIndex":1666867}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666867'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666867}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666867'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666867}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666867'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666867}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666867'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666867}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:15 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:16 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666869'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666869}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:17 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:18 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:19 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:19 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:19 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:20 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:19 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666870'
+      Date:
+      - Tue, 06 Jan 2015 20:58:20 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1666870}
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:19 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666871'
+      X-Raft-Index:
+      - '6525569'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 20:58:20 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"failed\",\"subState\":\"failed\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"b70c58b32b6c6f8e281ce783880533d74eab6d1f\"}","expiration":"2015-01-06T20:58:50.239593372Z","ttl":30,"modifiedIndex":1666871,"createdIndex":1666871}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:19 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/runbox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=launched
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1666873'
+      X-Raft-Index:
+      - '6525573'
+      X-Raft-Term:
+      - '11'
+      Date:
+      - Tue, 06 Jan 2015 20:58:20 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/runbox.service/target-state","value":"launched","modifiedIndex":1666873,"createdIndex":1666873},"prevNode":{"key":"/_coreos.com/fleet/job/runbox.service/target-state","value":"loaded","modifiedIndex":1666867,"createdIndex":1666867}}'
+    http_version: 
+  recorded_at: Tue, 06 Jan 2015 20:58:19 GMT
+recorded_with: VCR 2.9.3

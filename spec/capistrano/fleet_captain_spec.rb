@@ -30,8 +30,8 @@ describe Capistrano::FleetCaptain do
     it { is_expected.to be_a FleetCaptain::FleetClient }
   end
 
-  describe '#fleet' do
-    subject { cap_object.fleet(:list) }
+  describe '#cluster' do
+    subject { cap_object.cluster(:list) }
 
     it "passes the fleet operation to the client" do
       expect(cap_object.fleet_client).to receive(:list)
@@ -39,7 +39,7 @@ describe Capistrano::FleetCaptain do
     end
   end
 
-  describe '#new_services', :vcr do
+  describe '#new_locally', :vcr do
     include_context 'ssh connection established'
 
     before do
@@ -47,47 +47,99 @@ describe Capistrano::FleetCaptain do
     end
 
     it 'should include units in the fleet file not on the cluster' do
-      expect(subject.new_services).to include FleetCaptain::Service['hello_world']
+      expect(subject.new_locally).to include FleetCaptain::Service['hello_world']
     end
   end
 
-  describe '#changed_services', :live do
+  describe '#identical_services', :vcr do
+    include_context 'ssh connection established'
+    
+    let(:truebox) { FleetCaptain::Service['truebox'] }
+
+    it 'returns services present in both fleetfile and cluster' do
+      expect(subject.identical_services.to_a).to eq [truebox]
+    end
+  end
+
+  describe '#changed_locally', :vcr do
     include_context 'ssh connection established'
 
     let(:truebox) { FleetCaptain::Service['truebox'] }
 
-    # if you are re-recording VCR cassettes, you will need to setup
-    # the cluster by adding the truebox service before your tests
-    # will pass
-
-    before do
-      subject.fleet_client = fleet_client
-    end
-
     it 'should list changed units' do
-      require 'pry'; binding.pry
-
       expect { truebox.start = [run: '/bin/bash false'] }
-        .to change { subject.changed_services.to_a }
+        .to change { subject.changed_locally.to_a }
         .from([])
-        .to([FleetCaptain::Service['truebox']])
+        .to([truebox])
     end
   end
 
-  describe '#stale_services'
+  describe '#removed_locally', :vcr do
+    include_context 'ssh connection established'
 
-  describe '#new_services' do
-    subject { cap_object.new_services }
-    it "contains any service that is not already listed in the fleet" do
-      allow(cap_object).to receive(:fleet).with(:list).and_return(Set.new)
-      expect(subject).to include(*cap_object.services)
+    let(:removed_unit) { <<-UNIT.strip_heredoc
+       [Unit]
+       Description=Hello World
+       Name=Unnamed
+       
+       [Service]
+       ExecStart=/bin/bash -c "while true; do echo \\"Hello, world\\"; sleep 1; done"
+    UNIT
+    } 
+
+    it 'shows locally removed units' do
+      expect(subject.removed_locally.to_a.first.to_unit).to eq removed_unit
     end
   end
 
-  describe '#all_services'
+  describe '#register', :vcr do
+    include_context 'ssh connection established'
+    include_context 'units'
 
-  describe '#services' do
-    subject { cap_object.services }
+    it 'uploads the systemd unit file to the cluster' do
+      expect(subject.register(falsebox)).to eq true
+    end
+  end
+
+  describe '#start', :vcr do
+    include_context 'ssh connection established'
+    include_context 'units'
+
+    context 'starting a registered box' do
+      before do
+        subject.register(runbox)
+        loop until subject.loaded?(runbox)
+      end
+
+      it 'starts the runbox file on the cluster' do
+        expect(subject.start(runbox)).to eq true
+      end
+    end
+
+    context 'starting an unregistered serviced', :vcr do
+      it 'do not do that' do
+        expect { subject.start(runbox) }
+          .to raise_error FleetCaptain::ServiceNotRegistered
+      end
+    end
+  end
+
+
+  describe '#stop' do
+    #include_context 'ssh connection established'
+    #include_context 'runbox'
+
+    #it 'stops the service on the cluster' do
+    #  subject.start(runbox)
+    #  expect(subject.stop(runbox)).to eq true
+    #end
+  end
+  
+  describe '#remove'
+  describe '#restart'
+
+  describe '#local_services' do
+    subject { cap_object.local_services }
     it "contains only FleetCaptain::Service objects" do
       subject.each do |service|
         expect(service).to be_instance_of FleetCaptain::Service
@@ -98,5 +150,4 @@ describe Capistrano::FleetCaptain do
       expect(subject.length).to eq 2
     end
   end
-
 end

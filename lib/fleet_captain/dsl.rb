@@ -50,7 +50,7 @@ module FleetCaptain
       attr_reader :service
 
       def self.build(name, &block)
-        service = FleetCaptain::Service.new(name, config.hash_slice_length)
+        service = FleetCaptain::Service.new(name, hash_slice_length: config.hash_slice_length)
         service.after             = 'docker.service'
         service.requires          = 'docker.service'
         service.exec_start_pre    = config.default_before_start
@@ -79,7 +79,6 @@ module FleetCaptain
         service.description = desc
       end
 
-      
       def self.define_directives(methods)
         methods.each do |directive|
           define_method directive.underscore do |value|

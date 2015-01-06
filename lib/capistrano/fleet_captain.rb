@@ -1,6 +1,7 @@
 require "capistrano"
 require "mkmf"
 require 'rake'
+require 'timeout'
 
 if Rake::Task.tasks.include?("deploy")
   Rake::Task["deploy"].clear_actions
@@ -13,11 +14,12 @@ load File.expand_path("../tasks/docker.rake", __FILE__)
 
 module Capistrano
   class FleetCaptain < Capistrano::SCM
-    def docker(*args, &block)
+
+    def container(*args, &block)
       docker_client.send(*args, &block)
     end
 
-    def fleet(*args, &block)
+    def cluster(*args, &block)
       fleet_client.send(*args, &block)
     end
     
@@ -45,55 +47,86 @@ module Capistrano
         ::FleetCaptain.fleetfile
       end
 
-      def new_services
-        # FleetCaptain.services not in fleet(:list)
-        services - fleet(:list)
+      def local_services
+        @local_services  ||= ::FleetCaptain.services
       end
 
-      def changed_services
-        # FleetCaptain.services changed from fleet(:list)
-        services - fleet(:list)
+      def remote_services
+        @remote_services ||= cluster(:list)
       end
 
-      def stale_services
-        # fleet(:list) not in FleetCaptain.services
-        services - fleet(:list)
+      def identical_services
+        local_services & remote_services
+      end
+
+      def changed_locally
+        (local_services - remote_services).select { |service|
+          remote_service_names.include? service.name
+        }
+      end
+
+      def new_locally
+        local_services - remote_services
+      end
+
+      def removed_locally
+        remote_services - local_services
       end
 
       def all_services
-        fleet(:list) | services
+        local_services + remote_services
       end
       
-      def services
-        ::FleetCaptain.services
-      end
-
       def provision(&block)
         cloud(:provision!, &block)
       end
 
       def verify
-        docker :verify
+        container(:verify)
       end
 
       def rollback_tag(production_tag, rollback_tag)
-        images = docker :images
+        images = container(:images)
 
         production_image = images.select { |i| i.info['RepoTags'] == production_tag }
         production_image.tag(rollback_tag)
       end
 
       def tag(image_id, tag)
-        docker :tag, image_id, tag
+        container(:tag, image_id, tag)
       end
 
       def update
-        docker :build, repo_tag
+        container(:build, repo_tag)
       end
 
       def release
-        docker :push, repo_tag
+        container(:push, repo_tag)
       end
+
+      def register(service)
+        cluster(:submit, service)
+      end
+
+      def loaded?(service)
+        cluster(:loaded?, service)
+      end
+
+      def start(service)
+        if cluster(:loaded?, service)
+          cluster(:start, service)
+        else
+          raise ::FleetCaptain::ServiceNotRegistered, 
+            "Service #{service.name} is not registered in the cluster"
+        end
+      end
+
+      private
+
+      def remote_service_names
+        @remote_services_names ||= remote_services.map(&:name)
+      end
+
     end
   end
 end
