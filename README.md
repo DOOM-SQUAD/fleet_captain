@@ -53,7 +53,7 @@ Fleet.command do
     before_start :kill, :rm, :pull
     start        run: { p: '80:80' }
 
-    start        '/usr/bin/docker run -p 80:80 -v /mount/data:/mount/data --name whatever container
+    start        '/usr/bin/docker run -p 80:80 -v /mount/data:/mount/data --name whatever container'
     after_start  'cap fleet:available'
     before_stop  :stop
     after_stop   'cap fleet:unavailble'
@@ -150,8 +150,9 @@ same version to discover your deploy. You can register as compatible within
 different release tags by passing them as an additional parameter.
 
 ```ruby
-FleetCaptain.register('service_name', connection_hash, versions: ['v1.01',
-'v1.1'])
+FleetCaptain.register('service_name', connection_hash, 
+  versions: ['v1.01','v1.1']
+)
 ```
 
 This should allow you to deploy individual services to the cluster without
