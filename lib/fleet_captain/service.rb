@@ -6,12 +6,14 @@ require 'active_support/core_ext/module/aliasing'
 require 'active_support/core_ext/class/attribute'
 require 'active_model/attribute_methods'
 require 'active_model/dirty'
+require 'forwardable'
 
 require 'fleet'
 
 require 'fleet_captain/commands/docker'
 require 'fleet_captain/commands/parser'
 require 'fleet_captain/service/attributes'
+require 'fleet_captain/service/persistence'
 
 module FleetCaptain
   class Service
@@ -21,6 +23,7 @@ module FleetCaptain
     include ActiveModel::Dirty
     include FleetCaptain::Service::Attributes
     include ActiveSupport::Configurable
+    extend Forwardable
 
     def self.services
       @services ||= Set.new
@@ -36,6 +39,12 @@ module FleetCaptain
 
     def self.from_unit(name: 'Unnamed', text:)
       FleetCaptain::UnitFile.parse(text, name)
+    end
+
+    config_accessor :cluster_name
+
+    config_accessor :cluster_client do
+      FleetClient.new(config.cluster_name)
     end
 
     # unit are assigned names based on the
@@ -68,9 +77,12 @@ module FleetCaptain
     alias_attribute :stop,          :exec_stop
     alias_attribute :after_stop,    :exec_stop_post
 
-    def initialize(service_name)
+    def_delegators :@persister, :persisted?, :save, :reload, :stale?
+
+    def initialize(service_name, cluster_client: nil)
       @name = service_name
       @instances = 1
+      @persister = Persistence.new(self, cluster_client || self.class.cluster_client)
       yield self if block_given?
     end
 

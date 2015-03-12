@@ -65,6 +65,12 @@ module FleetCaptain
             memo[method] = send(method)
         }.delete_if { |_, v| v.blank? }
       end
+
+      def attributes=(hash)
+        hash.each_pair do |attribute, value|
+          send("#{attribute}=", value) 
+        end
+      end
     end
   end
 end

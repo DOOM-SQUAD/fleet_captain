@@ -31,7 +31,7 @@ module Capistrano
       attr_accessor :fleet_client, :docker_client, :cloud_client
 
       def fleet_client
-        @fleet_client ||= ::FleetCaptain::FleetClient.new(context.fetch(:fleet_endpoint))
+        @fleet_client ||= ::FleetCaptain::FleetClient.new(context.fetch(:fleet_stack))
       end
 
       def docker_client

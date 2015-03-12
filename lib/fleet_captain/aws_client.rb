@@ -4,9 +4,6 @@ require 'active_support/configurable'
 require 'active_support/inflector'
 require 'json'
 
-
-
-
 module FleetCaptain
   class AwsClient
     include ActiveSupport::Configurable

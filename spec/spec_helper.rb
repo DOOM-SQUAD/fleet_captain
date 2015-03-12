@@ -26,4 +26,15 @@ RSpec.configure do |c|
     VCR.turn_on!
     WebMock.enable!
   end
+
+  c.after(:example, transaction: true) do |example|
+    next unless example.metadata[:live] || VCR.current_cassette.send(:previously_recorded_interactions).empty?
+
+    VCR.eject_cassette
+    VCR.turn_off!
+    WebMock.disable!
+    fleet_client.nuke!
+    WebMock.enable! 
+    VCR.turn_on!
+  end
 end

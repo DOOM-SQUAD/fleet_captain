@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: put
-    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/11d1eba1e8ea551e08817fcec834d726f3fb328f?prevExist=false
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/622537e1ad74c8859be066fe343d3e6b14acace7?prevExist=false
     body:
       encoding: US-ASCII
-      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DTrue+box%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%5B%5C%22%2Fusr%2Fbin%2Fdocker+run+--name+truebox-cb3b5d0+busybox+bin%2Fbash+true%5C%22%5D%5CnExecStartPre%3D%5B%5C%22%2Fusr%2Fbin%2Fdocker+kill+truebox-cb3b5d0%5C%22%2C+%5C%22%2Fusr%2Fbin%2Fdocker+rm+truebox-cb3b5d0%5C%22%2C+%5C%22%2Fusr%2Fbin%2Fdocker+pull+truebox-cb3b5d0%5C%22%5D%5CnExecStartPost%3D%5B%5C%22cap+fleet%3Aavailable%5B%25n%5D%5C%22%5D%5CnExecStop%3D%5B%5C%22%2Fusr%2Fbin%2Fdocker+stop+truebox-cb3b5d0%5C%22%5D%5CnExecStopPost%3D%5B%5C%22cap+fleet%3Aunavailable%5B%25n%5D%5C%22%5D%5Cn%22%7D
+      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DTrue+box%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%2Fusr%2Fbin%2Fdocker+run+--name+truebox-cb3b5d0+busybox+bin%2Fbash+true%5CnExecStartPre%3D%2Fusr%2Fbin%2Fdocker+kill+truebox-cb3b5d0%5CnExecStartPre%3D%2Fusr%2Fbin%2Fdocker+rm+truebox-cb3b5d0%5CnExecStartPre%3D%2Fusr%2Fbin%2Fdocker+pull+truebox-cb3b5d0%5CnExecStartPost%3Dcap+fleet%3Aavailable%5B%25n%5D%5CnExecStop%3D%2Fusr%2Fbin%2Fdocker+stop+truebox-cb3b5d0%5CnExecStopPost%3Dcap+fleet%3Aunavailable%5B%25n%5D%5Cn%22%7D
     headers:
       User-Agent:
       - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
@@ -15,20 +15,95 @@ http_interactions:
       - application/x-www-form-urlencoded
   response:
     status:
-      code: 307
+      code: 201
       message: 
     headers:
-      Location:
-      - http://10.171.85.108:4001/v2/keys/_coreos.com/fleet/unit/11d1eba1e8ea551e08817fcec834d726f3fb328f?prevExist=false
-      Date:
-      - Mon, 26 Jan 2015 19:50:50 GMT
       Content-Type:
-      - text/plain; charset=utf-8
+      - application/json
+      X-Etcd-Index:
+      - '3099005'
+      X-Raft-Index:
+      - '16659818'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:14 GMT
     body:
       encoding: UTF-8
-      string: ''
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/unit/622537e1ad74c8859be066fe343d3e6b14acace7","value":"{\"Raw\":\"[Unit]\\nDescription=True
+        box\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-cb3b5d0 busybox bin/bash true\\nExecStartPre=/usr/bin/docker
+        kill truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker rm truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker
+        pull truebox-cb3b5d0\\nExecStartPost=cap fleet:available[%n]\\nExecStop=/usr/bin/docker
+        stop truebox-cb3b5d0\\nExecStopPost=cap fleet:unavailable[%n]\\n\"}","modifiedIndex":3099005,"createdIndex":3099005}}'
     http_version: 
-  recorded_at: Mon, 26 Jan 2015 19:50:50 GMT
+  recorded_at: Wed, 18 Feb 2015 15:41:14 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/object?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Name%22%3A%22truebox.service%22%2C%22UnitHash%22%3A%5B98%2C37%2C55%2C225%2C173%2C116%2C200%2C133%2C155%2C224%2C102%2C254%2C52%2C61%2C62%2C107%2C20%2C172%2C172%2C231%5D%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '3099006'
+      X-Raft-Index:
+      - '16659819'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:14 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/job/truebox.service/object","value":"{\"Name\":\"truebox.service\",\"UnitHash\":[98,37,55,225,173,116,200,133,155,224,102,254,52,61,62,107,20,172,172,231]}","modifiedIndex":3099006,"createdIndex":3099006}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:14 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '3099007'
+      X-Raft-Index:
+      - '16659821'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:14 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/truebox.service/target-state","value":"loaded","modifiedIndex":3099007,"createdIndex":3099007}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:14 GMT
 - request:
     method: get
     uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
@@ -48,21 +123,59 @@ http_interactions:
       Content-Type:
       - application/json
       X-Etcd-Index:
-      - '2250086'
+      - '3099007'
       X-Raft-Index:
-      - '11214296'
+      - '16659821'
       X-Raft-Term:
-      - '120'
+      - '135'
       Date:
-      - Mon, 26 Jan 2015 19:50:53 GMT
+      - Wed, 18 Feb 2015 15:41:14 GMT
     body:
       encoding: UTF-8
-      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/68bdd7f3afaf8b73b7275ec9f2859fe062faee21","value":"{\"Raw\":\"[Unit]\\nDescription=Run
-        Box Run\\nName=runbox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
-        run --name runbox-1 busybox /bin/sh -c \\\"while true; do echo \\\\''Hit CTRL+C\\\\'';
-        sleep 1; done\\\"\\n\"}","modifiedIndex":2046150,"createdIndex":2046150}],"modifiedIndex":633,"createdIndex":633}}'
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/622537e1ad74c8859be066fe343d3e6b14acace7","value":"{\"Raw\":\"[Unit]\\nDescription=True
+        box\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-cb3b5d0 busybox bin/bash true\\nExecStartPre=/usr/bin/docker
+        kill truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker rm truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker
+        pull truebox-cb3b5d0\\nExecStartPost=cap fleet:available[%n]\\nExecStop=/usr/bin/docker
+        stop truebox-cb3b5d0\\nExecStopPost=cap fleet:unavailable[%n]\\n\"}","modifiedIndex":3099005,"createdIndex":3099005}],"modifiedIndex":3099005,"createdIndex":3099005}}'
     http_version: 
-  recorded_at: Mon, 26 Jan 2015 19:50:53 GMT
+  recorded_at: Wed, 18 Feb 2015 15:41:14 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '3099007'
+      X-Raft-Index:
+      - '16659821'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:15 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/622537e1ad74c8859be066fe343d3e6b14acace7","value":"{\"Raw\":\"[Unit]\\nDescription=True
+        box\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-cb3b5d0 busybox bin/bash true\\nExecStartPre=/usr/bin/docker
+        kill truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker rm truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker
+        pull truebox-cb3b5d0\\nExecStartPost=cap fleet:available[%n]\\nExecStop=/usr/bin/docker
+        stop truebox-cb3b5d0\\nExecStopPost=cap fleet:unavailable[%n]\\n\"}","modifiedIndex":3099005,"createdIndex":3099005}],"modifiedIndex":3099005,"createdIndex":3099005}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:15 GMT
 - request:
     method: put
     uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
@@ -78,18 +191,1464 @@ http_interactions:
       - application/x-www-form-urlencoded
   response:
     status:
-      code: 307
+      code: 201
       message: 
     headers:
-      Location:
-      - http://10.171.85.108:4001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
-      Date:
-      - Mon, 26 Jan 2015 19:50:53 GMT
       Content-Type:
-      - text/plain; charset=utf-8
+      - application/json
+      X-Etcd-Index:
+      - '3099008'
+      X-Raft-Index:
+      - '16659822'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:15 GMT
     body:
       encoding: UTF-8
-      string: ''
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"loaded","modifiedIndex":3099008,"createdIndex":3099008}}'
     http_version: 
-  recorded_at: Mon, 26 Jan 2015 19:50:53 GMT
+  recorded_at: Wed, 18 Feb 2015 15:41:15 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=inactive
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '3099009'
+      X-Raft-Index:
+      - '16659824'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:15 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"inactive","modifiedIndex":3099009,"createdIndex":3099009},"prevNode":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"loaded","modifiedIndex":3099008,"createdIndex":3099008}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:15 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service?dir=false&recursive=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '3099010'
+      X-Raft-Index:
+      - '16659825'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:15 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/job/Unnamed.service","dir":true,"modifiedIndex":3099010,"createdIndex":3099008},"prevNode":{"key":"/_coreos.com/fleet/job/Unnamed.service","dir":true,"modifiedIndex":3099008,"createdIndex":3099008}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:15 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/622537e1ad74c8859be066fe343d3e6b14acace7?dir=false&recursive=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '3099011'
+      X-Raft-Index:
+      - '16659826'
+      X-Raft-Term:
+      - '135'
+      Date:
+      - Wed, 18 Feb 2015 15:41:15 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/unit/622537e1ad74c8859be066fe343d3e6b14acace7","modifiedIndex":3099011,"createdIndex":3099005},"prevNode":{"key":"/_coreos.com/fleet/unit/622537e1ad74c8859be066fe343d3e6b14acace7","value":"{\"Raw\":\"[Unit]\\nDescription=True
+        box\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-cb3b5d0 busybox bin/bash true\\nExecStartPre=/usr/bin/docker
+        kill truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker rm truebox-cb3b5d0\\nExecStartPre=/usr/bin/docker
+        pull truebox-cb3b5d0\\nExecStartPost=cap fleet:available[%n]\\nExecStop=/usr/bin/docker
+        stop truebox-cb3b5d0\\nExecStopPost=cap fleet:unavailable[%n]\\n\"}","modifiedIndex":3099005,"createdIndex":3099005}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:15 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job?recursive=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.9
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      content-type:
+      - application/json
+      x-etcd-index:
+      - '3099012'
+      x-raft-index:
+      - '16659828'
+      x-raft-term:
+      - '135'
+      date:
+      - Wed, 18 Feb 2015 15:41:15 GMT
+      transfer-encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/job","dir":true,"modifiedIndex":3099012,"createdIndex":3099006},"prevNode":{"key":"/_coreos.com/fleet/job","dir":true,"modifiedIndex":3099006,"createdIndex":3099006}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:15 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit?recursive=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.9
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      content-type:
+      - application/json
+      x-etcd-index:
+      - '3099014'
+      x-raft-index:
+      - '16659830'
+      x-raft-term:
+      - '135'
+      date:
+      - Wed, 18 Feb 2015 15:41:15 GMT
+      transfer-encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/unit","dir":true,"modifiedIndex":3099014,"createdIndex":3099005},"prevNode":{"key":"/_coreos.com/fleet/unit","dir":true,"modifiedIndex":3099005,"createdIndex":3099005}}'
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:16 GMT
+- request:
+    method: get
+    uri: https://s3.amazonaws.com/coreos.com/dist/aws/coreos-stable-pv.template
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - kKFi41GKsgxOcnznxo/qleqlHYOBaKYX/WmjioDWpGSAoEzOcqKX42PrSZilM83f
+      X-Amz-Request-Id:
+      - 842B73D6DD8B8454
+      Date:
+      - Wed, 18 Feb 2015 15:41:17 GMT
+      Content-Language:
+      - en
+      Cache-Control:
+      - public, max-age=1800
+      Last-Modified:
+      - Tue, 17 Feb 2015 18:30:03 GMT
+      Etag:
+      - '"5b08bb419ed36b045bb98ae42cd07432"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - application/octet-stream
+      Content-Length:
+      - '4440'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: "{\n  \"AWSTemplateFormatVersion\": \"2010-09-09\",\n  \"Description\":
+        \"CoreOS on EC2: http://coreos.com/docs/running-coreos/cloud-providers/ec2/\",\n
+        \ \"Mappings\" : {\n      \"RegionMap\" : {\n\n          \"eu-central-1\"
+        : {\n              \"AMI\" : \"ami-88c1f295\"\n          },\n\n          \"ap-northeast-1\"
+        : {\n              \"AMI\" : \"ami-ea5c46eb\"\n          },\n\n          \"sa-east-1\"
+        : {\n              \"AMI\" : \"ami-2fe95632\"\n          },\n\n          \"ap-southeast-2\"
+        : {\n              \"AMI\" : \"ami-4fd3a775\"\n          },\n\n          \"ap-southeast-1\"
+        : {\n              \"AMI\" : \"ami-70dcf622\"\n          },\n\n          \"us-east-1\"
+        : {\n              \"AMI\" : \"ami-8097d4e8\"\n          },\n\n          \"us-west-2\"
+        : {\n              \"AMI\" : \"ami-f3702bc3\"\n          },\n\n          \"us-west-1\"
+        : {\n              \"AMI\" : \"ami-26b5ad63\"\n          },\n\n          \"eu-west-1\"
+        : {\n              \"AMI\" : \"ami-5b911f2c\"\n          }\n\n      }\n  },\n
+        \ \"Parameters\": {\n    \"InstanceType\" : {\n      \"Description\" : \"EC2
+        PV instance type (m3.medium, etc).\",\n      \"Type\" : \"String\",\n      \"Default\"
+        : \"m3.medium\",\n      \"ConstraintDescription\" : \"Must be a valid EC2
+        PV instance type.\"\n    },\n    \"ClusterSize\": {\n      \"Default\": \"3\",\n
+        \     \"MinValue\": \"3\",\n      \"MaxValue\": \"12\",\n      \"Description\":
+        \"Number of nodes in cluster (3-12).\",\n      \"Type\": \"Number\"\n    },\n
+        \   \"DiscoveryURL\": {\n      \"Description\": \"An unique etcd cluster discovery
+        URL. Grab a new token from https://discovery.etcd.io/new\",\n      \"Type\":
+        \"String\"\n    },\n    \"AdvertisedIPAddress\": {\n      \"Description\":
+        \"Use 'private' if your etcd cluster is within one region or 'public' if it
+        spans regions or cloud providers.\",\n      \"Default\": \"private\",\n      \"AllowedValues\":
+        [\"private\", \"public\"],\n      \"Type\": \"String\"\n    },\n    \"AllowSSHFrom\":
+        {\n      \"Description\": \"The net block (CIDR) that SSH is available to.\",\n
+        \     \"Default\": \"0.0.0.0/0\",\n      \"Type\": \"String\"\n    },\n    \"KeyPair\"
+        : {\n      \"Description\" : \"The name of an EC2 Key Pair to allow SSH access
+        to the instance.\",\n      \"Type\" : \"String\"\n    }\n  },\n  \"Resources\":
+        {\n    \"CoreOSSecurityGroup\": {\n      \"Type\": \"AWS::EC2::SecurityGroup\",\n
+        \     \"Properties\": {\n        \"GroupDescription\": \"CoreOS SecurityGroup\",\n
+        \       \"SecurityGroupIngress\": [\n          {\"IpProtocol\": \"tcp\", \"FromPort\":
+        \"22\", \"ToPort\": \"22\", \"CidrIp\": {\"Ref\": \"AllowSSHFrom\"}}\n        ]\n
+        \     }\n    },\n    \"Ingress4001\": {\n      \"Type\": \"AWS::EC2::SecurityGroupIngress\",\n
+        \     \"Properties\": {\n        \"GroupName\": {\"Ref\": \"CoreOSSecurityGroup\"},
+        \"IpProtocol\": \"tcp\", \"FromPort\": \"4001\", \"ToPort\": \"4001\", \"SourceSecurityGroupId\":
+        {\n          \"Fn::GetAtt\" : [ \"CoreOSSecurityGroup\", \"GroupId\" ] \n
+        \       }\n      }\n    },\n    \"Ingress7001\": {\n      \"Type\": \"AWS::EC2::SecurityGroupIngress\",\n
+        \     \"Properties\": {\n        \"GroupName\": {\"Ref\": \"CoreOSSecurityGroup\"},
+        \"IpProtocol\": \"tcp\", \"FromPort\": \"7001\", \"ToPort\": \"7001\", \"SourceSecurityGroupId\":
+        {\n          \"Fn::GetAtt\" : [ \"CoreOSSecurityGroup\", \"GroupId\" ] \n
+        \       } \n      }\n    },\n    \"CoreOSServerAutoScale\": {\n      \"Type\":
+        \"AWS::AutoScaling::AutoScalingGroup\",\n      \"Properties\": {\n        \"AvailabilityZones\":
+        {\"Fn::GetAZs\": \"\"},\n        \"LaunchConfigurationName\": {\"Ref\": \"CoreOSServerLaunchConfig\"},\n
+        \       \"MinSize\": \"3\",\n        \"MaxSize\": \"12\",\n        \"DesiredCapacity\":
+        {\"Ref\": \"ClusterSize\"},\n        \"Tags\": [\n            {\"Key\": \"Name\",
+        \"Value\": { \"Ref\" : \"AWS::StackName\" }, \"PropagateAtLaunch\": true}\n
+        \       ]\n      }\n    },\n    \"CoreOSServerLaunchConfig\": {\n      \"Type\":
+        \"AWS::AutoScaling::LaunchConfiguration\",\n      \"Properties\": {\n        \"ImageId\"
+        : { \"Fn::FindInMap\" : [ \"RegionMap\", { \"Ref\" : \"AWS::Region\" }, \"AMI\"
+        ]},\n        \"InstanceType\": {\"Ref\": \"InstanceType\"},\n        \"KeyName\":
+        {\"Ref\": \"KeyPair\"},\n        \"SecurityGroups\": [{\"Ref\": \"CoreOSSecurityGroup\"}],\n
+        \       \"UserData\" : { \"Fn::Base64\":\n          { \"Fn::Join\": [ \"\",
+        [\n            \"#cloud-config\\n\\n\",\n            \"coreos:\\n\",\n            \"
+        \ etcd:\\n\",\n            \"    discovery: \", { \"Ref\": \"DiscoveryURL\"
+        }, \"\\n\",\n            \"    addr: $\", { \"Ref\": \"AdvertisedIPAddress\"
+        }, \"_ipv4:4001\\n\",\n            \"    peer-addr: $\", { \"Ref\": \"AdvertisedIPAddress\"
+        }, \"_ipv4:7001\\n\",\n            \"  units:\\n\",\n            \"    - name:
+        etcd.service\\n\",\n            \"      command: start\\n\",\n            \"
+        \   - name: fleet.service\\n\",\n            \"      command: start\\n\"\n
+        \           ] ]\n          }\n        }\n      }\n    }\n  }\n}\n"
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:16 GMT
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&Filter.1.Name=tag%3AName&Filter.1.Value.1=Test-Stack&Timestamp=2015-02-18T15%3A41%3A17Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '131'
+      User-Agent:
+      - aws-sdk-ruby/1.60.2 ruby/2.1.4 x86_64-darwin14.0
+      X-Amz-Date:
+      - 20150218T154117Z
+      X-Amz-Content-Sha256:
+      - f75335e48756112f295f09fab4e42c69e771c3edd3b1c91cbf6d96b23fd75dd2
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150218/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=0f1f0923f3117aa7c9d38e10605569f139cc9e41bc39e46246f06edb253786ec
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 18 Feb 2015 15:41:17 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>a8eb7627-5703-4ded-a7ad-c77b42d3d00b</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-901c72bf</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-1be02bf2</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-169-211-140.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-160-121-68.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:51:51.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1d</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.169.211.140</privateIpAddress>
+                            <ipAddress>54.160.121.68</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-64615d2b</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:51:55.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>fcf75afa-684d-41e8-a37a-baeba1a15b59_us-east-1d_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+                <item>
+                    <reservationId>r-a8b50746</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-bda5b45c</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-153-237-174.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-87-71-129.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:50:51.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1e</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.153.237.174</privateIpAddress>
+                            <ipAddress>54.87.71.129</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-00a7db18</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:50:54.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>1a9eae7f-c99a-4384-966f-88c87c6a6537_us-east-1e_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+                <item>
+                    <reservationId>r-5279807f</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-ddfe7531</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-171-85-108.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-146-31-143.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:50:50.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1b</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.171.85.108</privateIpAddress>
+                            <ipAddress>54.146.31.143</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-ec7ee7a8</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:50:55.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>1a9eae7f-c99a-4384-966f-88c87c6a6537_us-east-1b_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:17 GMT
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-1be02bf2&Timestamp=2015-02-18T15%3A41%3A17Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '102'
+      User-Agent:
+      - aws-sdk-ruby/1.60.2 ruby/2.1.4 x86_64-darwin14.0
+      X-Amz-Date:
+      - 20150218T154117Z
+      X-Amz-Content-Sha256:
+      - e5c7c68c908ebad456dbce659ac65bf8819b1d54483f644bb6b838954fe69679
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150218/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=0d2562cb6a2e08274bf166ffbbc190ff84f7bb43c70221cad61f8874db9f4717
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 18 Feb 2015 15:41:17 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>c99e9eae-6199-48a5-9df7-17cfdc2e461b</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-901c72bf</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-1be02bf2</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-169-211-140.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-160-121-68.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:51:51.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1d</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.169.211.140</privateIpAddress>
+                            <ipAddress>54.160.121.68</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-64615d2b</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:51:55.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>fcf75afa-684d-41e8-a37a-baeba1a15b59_us-east-1d_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:18 GMT
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-1be02bf2&Timestamp=2015-02-18T15%3A41%3A18Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '102'
+      User-Agent:
+      - aws-sdk-ruby/1.60.2 ruby/2.1.4 x86_64-darwin14.0
+      X-Amz-Date:
+      - 20150218T154118Z
+      X-Amz-Content-Sha256:
+      - c85e65debcc234b7e6a22455c825e84814b052a2c6e14a3f9bd2bc7b3480d8d6
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150218/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=d047a5a018183c46d224ba49be625fcb2b4987fe58ff6e4d0ff73fbb1db1d1ff
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 18 Feb 2015 15:41:17 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>f652e283-83a0-43be-b9dd-0b4ace080438</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-901c72bf</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-1be02bf2</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-169-211-140.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-160-121-68.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:51:51.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1d</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.169.211.140</privateIpAddress>
+                            <ipAddress>54.160.121.68</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-64615d2b</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:51:55.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>fcf75afa-684d-41e8-a37a-baeba1a15b59_us-east-1d_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:18 GMT
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-bda5b45c&Timestamp=2015-02-18T15%3A41%3A18Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '102'
+      User-Agent:
+      - aws-sdk-ruby/1.60.2 ruby/2.1.4 x86_64-darwin14.0
+      X-Amz-Date:
+      - 20150218T154118Z
+      X-Amz-Content-Sha256:
+      - 68812076019499d5be910d77994a0c4bc6a22f97610d6626e2825bafa73fe4a0
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150218/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=9d622d48de3141bf649c9f5e2fcf1ccbc5d774ab96746f7b8a5baa24d65bd4f0
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 18 Feb 2015 15:41:18 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>b7da945f-1fef-436c-ab63-b81870b8ce14</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-a8b50746</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-bda5b45c</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-153-237-174.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-87-71-129.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:50:51.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1e</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.153.237.174</privateIpAddress>
+                            <ipAddress>54.87.71.129</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-00a7db18</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:50:54.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>1a9eae7f-c99a-4384-966f-88c87c6a6537_us-east-1e_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:18 GMT
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-bda5b45c&Timestamp=2015-02-18T15%3A41%3A18Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '102'
+      User-Agent:
+      - aws-sdk-ruby/1.60.2 ruby/2.1.4 x86_64-darwin14.0
+      X-Amz-Date:
+      - 20150218T154118Z
+      X-Amz-Content-Sha256:
+      - 68812076019499d5be910d77994a0c4bc6a22f97610d6626e2825bafa73fe4a0
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150218/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=9d622d48de3141bf649c9f5e2fcf1ccbc5d774ab96746f7b8a5baa24d65bd4f0
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 18 Feb 2015 15:41:18 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>fc440d62-ba8b-4bda-947f-9476004a2ecb</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-a8b50746</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-bda5b45c</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-153-237-174.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-87-71-129.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:50:51.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1e</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.153.237.174</privateIpAddress>
+                            <ipAddress>54.87.71.129</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-00a7db18</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:50:54.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>1a9eae7f-c99a-4384-966f-88c87c6a6537_us-east-1e_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:18 GMT
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-ddfe7531&Timestamp=2015-02-18T15%3A41%3A18Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '102'
+      User-Agent:
+      - aws-sdk-ruby/1.60.2 ruby/2.1.4 x86_64-darwin14.0
+      X-Amz-Date:
+      - 20150218T154118Z
+      X-Amz-Content-Sha256:
+      - 8ab22e48490ee499a5ffeb1a32369dad2b803e13ad57e9b007e4d813c303e0b0
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150218/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=e23f417f764ad8464fec1e0d8c0d08b826c4669d617c95dd339190fa7976abe1
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 18 Feb 2015 15:41:18 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>141ee138-f2b2-4cfb-86fc-dd5092a38ddf</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-5279807f</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-ddfe7531</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-171-85-108.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-146-31-143.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:50:50.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1b</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.171.85.108</privateIpAddress>
+                            <ipAddress>54.146.31.143</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-ec7ee7a8</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:50:55.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>1a9eae7f-c99a-4384-966f-88c87c6a6537_us-east-1b_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:19 GMT
+- request:
+    method: post
+    uri: https://ec2.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-ddfe7531&Timestamp=2015-02-18T15%3A41%3A19Z&Version=2014-09-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '102'
+      User-Agent:
+      - aws-sdk-ruby/1.60.2 ruby/2.1.4 x86_64-darwin14.0
+      X-Amz-Date:
+      - 20150218T154119Z
+      X-Amz-Content-Sha256:
+      - cd4993f74c68c7416b54ee187e515a689c27f95a196e7a04023ba51cefdc4ce3
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_ACCESS_ID>/20150218/us-east-1/ec2/aws4_request,
+        SignedHeaders=content-length;content-type;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=062004c9e508c2e72aba3cfe2e6624e12a83c6a544addf66ea95f9b7141eb2dc
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Wed, 18 Feb 2015 15:41:19 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+            <requestId>c27be862-8c6c-4c9d-af8c-49d7f859da20</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-5279807f</reservationId>
+                    <ownerId>001145812589</ownerId>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-4e052724</groupId>
+                            <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                        </item>
+                    </groupSet>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-ddfe7531</instanceId>
+                            <imageId>ami-f469f29c</imageId>
+                            <instanceState>
+                                <code>16</code>
+                                <name>running</name>
+                            </instanceState>
+                            <privateDnsName>ip-10-171-85-108.ec2.internal</privateDnsName>
+                            <dnsName>ec2-54-146-31-143.compute-1.amazonaws.com</dnsName>
+                            <reason/>
+                            <keyName>bork-knife-ec2</keyName>
+                            <amiLaunchIndex>0</amiLaunchIndex>
+                            <productCodes/>
+                            <instanceType>m3.medium</instanceType>
+                            <launchTime>2014-12-09T21:50:50.000Z</launchTime>
+                            <placement>
+                                <availabilityZone>us-east-1b</availabilityZone>
+                                <groupName/>
+                                <tenancy>default</tenancy>
+                            </placement>
+                            <kernelId>aki-919dcaf8</kernelId>
+                            <monitoring>
+                                <state>enabled</state>
+                            </monitoring>
+                            <privateIpAddress>10.171.85.108</privateIpAddress>
+                            <ipAddress>54.146.31.143</ipAddress>
+                            <groupSet>
+                                <item>
+                                    <groupId>sg-4e052724</groupId>
+                                    <groupName>Test-Stack-CoreOSSecurityGroup-QSQW06AUSOT</groupName>
+                                </item>
+                            </groupSet>
+                            <architecture>x86_64</architecture>
+                            <rootDeviceType>ebs</rootDeviceType>
+                            <rootDeviceName>/dev/sda</rootDeviceName>
+                            <blockDeviceMapping>
+                                <item>
+                                    <deviceName>/dev/sda</deviceName>
+                                    <ebs>
+                                        <volumeId>vol-ec7ee7a8</volumeId>
+                                        <status>attached</status>
+                                        <attachTime>2014-12-09T21:50:55.000Z</attachTime>
+                                        <deleteOnTermination>true</deleteOnTermination>
+                                    </ebs>
+                                </item>
+                            </blockDeviceMapping>
+                            <virtualizationType>paravirtual</virtualizationType>
+                            <clientToken>1a9eae7f-c99a-4384-966f-88c87c6a6537_us-east-1b_1</clientToken>
+                            <tagSet>
+                                <item>
+                                    <key>aws:autoscaling:groupName</key>
+                                    <value>Test-Stack-CoreOSServerAutoScale-BMI6XBKS9956</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:logical-id</key>
+                                    <value>CoreOSServerAutoScale</value>
+                                </item>
+                                <item>
+                                    <key>Name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-id</key>
+                                    <value>arn:aws:cloudformation:us-east-1:001145812589:stack/Test-Stack/593d6510-7fed-11e4-9b1e-50018ffe9e62</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>Test-Stack</value>
+                                </item>
+                                <item>
+                                    <key>test</key>
+                                    <value>true</value>
+                                </item>
+                            </tagSet>
+                            <hypervisor>xen</hypervisor>
+                            <networkInterfaceSet/>
+                            <ebsOptimized>false</ebsOptimized>
+                        </item>
+                    </instancesSet>
+                    <requesterId>226008221399</requesterId>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 18 Feb 2015 15:41:19 GMT
 recorded_with: VCR 2.9.3

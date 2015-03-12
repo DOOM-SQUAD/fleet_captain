@@ -51,6 +51,16 @@ describe FleetCaptain::FleetClient do
       end
     end
 
+    describe '#machines', :live do
+      it 'returns a complete description of the cluster' do
+        expect(subject.machines).to eq expected_hash
+      end
+
+      it 'can retrieve a list of machines' do
+        expect(fleet_client.machines.length).to be 3
+      end
+    end
+
     it 'raises a connection error if the ssh tunnel cannot be established' do
       allow(fleet_client).to receive(:establish_ssh_tunnel!) do
         raise 'fatal'
@@ -70,19 +80,6 @@ describe FleetCaptain::FleetClient do
         expect(fleet_client.list.size).to be 3
       end
     end
-
-    describe 'connecting to the fleet', :vcr do
-      before do
-        subject.submit(truebox)
-        subject.submit(falsebox)
-        subject.submit(runbox)
-      end
-
-      it 'can retrieve a list of machines' do
-        expect(fleet_client.machines.length).to be 3
-      end
-    end
-
 
     describe '#loaded?', :vcr do
 
@@ -114,7 +111,7 @@ describe FleetCaptain::FleetClient do
         end
       end
 
-      context 'for a running unit' do
+      context 'for a running unit', :live do
         before do
           subject.submit!(runbox)
           subject.start!(runbox)
